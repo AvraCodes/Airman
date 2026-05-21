@@ -4,12 +4,54 @@ import { useAuth } from "../hooks/useAuth";
 import axios from "axios";
 
 const DEMO_ACCOUNTS = [
-  { email: "admin@airman.local",      password: "admin",       label: "Admin" },
-  { email: "dispatcher@airman.local", password: "dispatcher",  label: "Dispatcher" },
-  { email: "instructor@airman.local", password: "instructor",  label: "Instructor" },
-  { email: "cfi@airman.local",        password: "cfi",         label: "CFI" },
-  { email: "cadet@airman.local",      password: "cadet",       label: "Cadet" },
-  { email: "mo@airman.local",         password: "mo",          label: "Maint. Officer" },
+  { 
+    email: "admin@airman.local",      
+    password: "admin",       
+    label: "Admin",
+    role: "ADMIN",
+    clearance: "Root Control // Audits",
+    summary: "Full base control & access to global system audit logs."
+  },
+  { 
+    email: "dispatcher@airman.local", 
+    password: "dispatcher",  
+    label: "Dispatcher",
+    role: "DISPATCHER",
+    clearance: "Flight Controls",
+    summary: "Schedules, releases, and guides flights from Scheduled ➔ Airborne ➔ Landed."
+  },
+  { 
+    email: "instructor@airman.local", 
+    password: "instructor",  
+    label: "Instructor",
+    role: "INSTRUCTOR",
+    clearance: "Flight Grading",
+    summary: "Reviews assigned sorties and drafts/submits cadet flight training performance grades."
+  },
+  { 
+    email: "cfi@airman.local",        
+    password: "cfi",         
+    label: "CFI",
+    role: "CFI",
+    clearance: "Command Approval",
+    summary: "Chief Flying Instructor. Reviews, approves or rejects training grades, and officially CLOSES sorties."
+  },
+  { 
+    email: "cadet@airman.local",      
+    password: "cadet",       
+    label: "Cadet",
+    role: "CADET",
+    clearance: "Read-Only Pilot",
+    summary: "Student pilot. Inspects assigned flight schedules and views officially approved training grades."
+  },
+  { 
+    email: "mo@airman.local",         
+    password: "mo",          
+    label: "Maint. Officer",
+    role: "MAINTENANCE_OFFICER",
+    clearance: "Hangar Operations",
+    summary: "Aircraft engineer. Tracks active defects, resolves fleet issues, and grounds or readies aircraft."
+  },
 ];
 
 export function Login() {
@@ -21,6 +63,7 @@ export function Login() {
   const [email, setEmail]       = useState("");
   const [password, setPassword] = useState("");
   const [error, setError]       = useState<string | null>(null);
+  const [hoveredPreset, setHoveredPreset] = useState<typeof DEMO_ACCOUNTS[0] | null>(null);
 
   const performLogin = async (credentials: { email: string; password: string }) => {
     setError(null);
@@ -57,79 +100,186 @@ export function Login() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-sky-950 via-slate-900 to-cyan-950 flex items-center justify-center p-4">
-      <div className="w-full max-w-md">
-        {/* Logo / Brand */}
-        <div className="text-center mb-8">
-          <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-sky-600 shadow-lg mb-4">
-            <svg className="w-9 h-9 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
-              <path strokeLinecap="round" strokeLinejoin="round" d="M6 12L3.269 3.126A59.768 59.768 0 0121.485 12 59.77 59.77 0 013.27 20.876L5.999 12zm0 0h7.5" />
-            </svg>
+    <div className="min-h-screen flex items-center justify-center p-4 md:p-6 select-none">
+      
+      {/* Outer Tactical Frame */}
+      <div className="w-full max-w-5xl grid md:grid-cols-12 gap-6 items-stretch">
+        
+        {/* LEFT COLUMN: Operations Console Login Form (5 cols md) */}
+        <div className="md:col-span-5 flex flex-col justify-between app-card border-slate-800 p-6 md:p-8">
+          <div>
+            {/* Top HUD Brand header */}
+            <div className="flex items-center gap-2 pb-4 border-b border-slate-850">
+              <div className="flex h-9 w-9 items-center justify-center rounded bg-cyan-950/40 border border-cyan-800/40 shadow-inner">
+                <svg className="h-5 w-5 text-cyan-400 filter drop-shadow-[0_0_6px_rgba(6,182,212,0.6)]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M6 12L3.269 3.126A59.768 59.768 0 0121.485 12 59.77 59.77 0 013.27 20.876L5.999 12zm0 0h7.5" />
+                </svg>
+              </div>
+              <div>
+                <h1 className="text-sm font-black uppercase tracking-widest text-slate-100 flex items-center gap-1.5">
+                  Skynet Console
+                  <span className="pulse-cyan"></span>
+                </h1>
+                <p className="text-[9px] font-mono font-bold tracking-widest text-slate-500 uppercase">
+                  SECURE PORTAL // BASE: BLR
+                </p>
+              </div>
+            </div>
+
+            {/* Login Status bar */}
+            <div className="mt-5 rounded border border-slate-800/60 bg-slate-950/80 px-3 py-2 text-[10px] font-mono text-slate-400">
+              STATUS: <span className="text-cyan-400 animate-pulse font-bold">AWAITING IDENTIFICATION CREDENTIALS</span>
+            </div>
+
+            <h2 className="text-sm font-bold text-slate-200 mt-6 uppercase tracking-wider">
+              Operator Sign In
+            </h2>
+
+            {error && (
+              <div className="mt-4 rounded-lg bg-red-950/30 border border-red-900/40 px-3.5 py-2.5 text-xs text-red-400 font-sans leading-relaxed">
+                <span className="font-bold uppercase font-mono text-[10px] block mb-0.5 text-red-500">Authentication Failed:</span>
+                {error}
+              </div>
+            )}
+
+            <form onSubmit={handleSubmit} className="mt-4 space-y-4">
+              <div>
+                <label className="block text-[10px] font-bold text-slate-400 mb-1.5 uppercase tracking-wider">Email Address</label>
+                <input
+                  type="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  required
+                  placeholder="name@airman.local"
+                  className="input font-mono"
+                />
+              </div>
+              
+              <div>
+                <label className="block text-[10px] font-bold text-slate-400 mb-1.5 uppercase tracking-wider">Password</label>
+                <input
+                  type="password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  required
+                  placeholder="••••••••"
+                  className="input font-mono text-xs"
+                />
+              </div>
+
+              <button
+                type="submit"
+                disabled={isLoading}
+                className="w-full btn-primary py-2.5 uppercase tracking-wider text-xs font-black"
+              >
+                {isLoading ? "Validating credentials..." : "Initialize Session"}
+              </button>
+            </form>
           </div>
-          <h1 className="text-3xl font-bold text-white tracking-tight">Skynet</h1>
-          <p className="text-sky-300 text-sm mt-1">Flight Operations Module</p>
+
+          <div className="mt-6 pt-4 border-t border-slate-850 text-[9px] font-mono text-slate-500 uppercase flex items-center justify-between">
+            <span>SECURE SYSTEM</span>
+            <span>v1.0.4 // AP-01</span>
+          </div>
         </div>
 
-        {/* Card */}
-        <div className="bg-white/10 backdrop-blur-md rounded-2xl border border-white/20 shadow-2xl p-8">
-          <h2 className="text-xl font-semibold text-white mb-6">Sign in to your account</h2>
-
-          {error && (
-            <div className="mb-4 rounded-lg bg-red-500/20 border border-red-400/30 px-4 py-3 text-sm text-red-200">
-              {error}
+        {/* RIGHT COLUMN: Quick-Presets and Detailed Access Clearance Guide (7 cols md) */}
+        <div className="md:col-span-7 flex flex-col justify-between app-card border-slate-800 p-6 md:p-8">
+          <div>
+            {/* Header info */}
+            <div className="flex items-center justify-between border-b border-slate-850 pb-4">
+              <div>
+                <h2 className="text-sm font-bold uppercase tracking-wider text-slate-200">
+                  ⚡ Station Roles & Presets
+                </h2>
+                <p className="text-[10px] text-slate-500 uppercase tracking-widest font-mono mt-0.5">
+                  Click a preset card to instantly authenticate and log in
+                </p>
+              </div>
+              <span className="text-[10px] font-mono text-amber-500 font-bold bg-amber-950/20 px-2 py-0.5 rounded border border-amber-900/30">
+                PRESETS ENABLED
+              </span>
             </div>
-          )}
 
-          <form onSubmit={handleSubmit} className="space-y-4">
-            <div>
-              <label className="block text-sm font-medium text-sky-200 mb-1.5">Email</label>
-              <input
-                type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                required
-                placeholder="you@airman.local"
-                className="w-full rounded-lg bg-white/10 border border-white/20 px-4 py-2.5 text-white placeholder:text-white/40 focus:outline-none focus:ring-2 focus:ring-sky-400 text-sm"
-              />
-            </div>
-            <div>
-              <label className="block text-sm font-medium text-sky-200 mb-1.5">Password</label>
-              <input
-                type="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                required
-                placeholder="••••••••"
-                className="w-full rounded-lg bg-white/10 border border-white/20 px-4 py-2.5 text-white placeholder:text-white/40 focus:outline-none focus:ring-2 focus:ring-sky-400 text-sm"
-              />
-            </div>
-            <button
-              type="submit"
-              disabled={isLoading}
-              className="w-full rounded-lg bg-sky-600 hover:bg-sky-500 active:bg-sky-700 disabled:opacity-60 py-2.5 text-sm font-semibold text-white transition-colors"
-            >
-              {isLoading ? "Signing in…" : "Sign in"}
-            </button>
-          </form>
-
-          {/* Demo quick-fill */}
-          <div className="mt-6 pt-5 border-t border-white/10">
-            <p className="text-xs text-sky-300 mb-3 font-medium uppercase tracking-wide">Demo accounts</p>
-            <div className="grid grid-cols-3 gap-2">
+            {/* Presets Grid */}
+            <div className="mt-5 grid grid-cols-2 sm:grid-cols-3 gap-3">
               {DEMO_ACCOUNTS.map((acc) => (
                 <button
                   key={acc.email}
                   type="button"
                   onClick={() => fillDemo(acc)}
-                  className="rounded-lg border border-white/15 bg-white/5 hover:bg-white/15 px-2 py-1.5 text-xs text-white/80 hover:text-white transition-colors text-center"
+                  onMouseEnter={() => setHoveredPreset(acc)}
+                  onMouseLeave={() => setHoveredPreset(null)}
+                  className="relative flex flex-col justify-between items-start rounded border border-slate-800 bg-slate-950/40 p-3 hover:bg-cyan-950/15 hover:border-cyan-800/80 transition-all text-left duration-250 select-none cursor-pointer"
                 >
-                  {acc.label}
+                  <div className="w-full flex items-center justify-between">
+                    <span className="text-[10px] font-black uppercase text-slate-200 tracking-wider">
+                      {acc.label}
+                    </span>
+                    <span className="h-1.5 w-1.5 rounded-full bg-cyan-500/80 animate-pulse"></span>
+                  </div>
+                  <span className="mt-1.5 text-[8px] font-mono text-cyan-400 font-bold tracking-widest uppercase">
+                    {acc.clearance}
+                  </span>
                 </button>
               ))}
             </div>
+
+            {/* Live Hover Info Box / Role Info */}
+            <div className="mt-5 rounded-lg border border-slate-800 bg-slate-950 p-4 relative min-h-[90px] flex flex-col justify-center">
+              <div className="absolute top-0 right-0 w-2.5 h-2.5 bg-slate-800 flex items-center justify-center text-[7px] font-bold text-slate-400 font-mono">ℹ️</div>
+              
+              {hoveredPreset ? (
+                <div>
+                  <div className="flex items-center gap-2">
+                    <span className="text-[10px] font-black text-cyan-400 uppercase tracking-widest">
+                      ROLE: {hoveredPreset.role}
+                    </span>
+                    <span className="text-[8px] font-mono text-slate-500 font-bold">|</span>
+                    <span className="text-[9px] font-mono text-amber-500/80 font-bold uppercase tracking-wider">
+                      {hoveredPreset.clearance}
+                    </span>
+                  </div>
+                  <p className="mt-1.5 text-xs text-slate-350 leading-relaxed font-sans">
+                    {hoveredPreset.summary}
+                  </p>
+                </div>
+              ) : (
+                <div>
+                  <div className="flex items-center gap-1.5">
+                    <span className="pulse-amber"></span>
+                    <span className="text-[10px] font-black text-amber-400 uppercase tracking-widest">
+                      Operator Clearance Matrix
+                    </span>
+                  </div>
+                  <p className="mt-1.5 text-xs text-slate-400 leading-relaxed font-sans">
+                    Hover over any preset role above to inspect their operational clearance profile, capabilities, and system authority.
+                  </p>
+                </div>
+              )}
+            </div>
+
+            {/* Plain English Guide Panel */}
+            <div className="mt-5 rounded border border-cyan-900/20 bg-cyan-950/10 p-4">
+              <h3 className="text-xs font-bold text-cyan-400 uppercase tracking-wider flex items-center gap-1.5">
+                <span>📖</span> Plain English Operations Guide
+              </h3>
+              <p className="mt-1.5 text-xs text-slate-350 leading-relaxed font-sans">
+                Skynet oversees a complete flight operations cycle.
+                To test the system, simply click **Dispatcher** preset to schedule and launch a flight. Once landed, click **Instructor** to grade the flight performance, and finally **CFI** to approve and close the logs. For technical issues or fleet grounding, log in as the **Maintenance Officer** to clear base defects!
+              </p>
+            </div>
+          </div>
+
+          <div className="mt-6 pt-4 border-t border-slate-850 flex items-center justify-between text-[9px] font-mono text-slate-500 uppercase">
+            <span>SYS STATUS: NOMINAL</span>
+            <span>SECURE FLIGHT LINK ACTIVE</span>
           </div>
         </div>
+
       </div>
+
     </div>
   );
 }
+
