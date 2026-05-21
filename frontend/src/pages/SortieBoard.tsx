@@ -119,7 +119,7 @@ export function SortieBoard() {
         
         {/* Status Toast Message */}
         {message && (
-          <div className="mt-2 sm:mt-0 px-3.5 py-1.5 text-xs font-semibold rounded-xl bg-indigo-500/10 text-indigo-300 border border-indigo-500/25 shadow-lg shadow-indigo-950/20 animate-pulse">
+          <div className="mt-2 sm:mt-0 px-3.5 py-1.5 text-xs font-semibold rounded-xl bg-cyan-500/10 text-cyan-300 border border-cyan-500/25 shadow-lg shadow-cyan-950/20 animate-pulse">
             System Notice: {message}
           </div>
         )}
@@ -178,7 +178,7 @@ export function SortieBoard() {
                   <td className="px-5 py-4 whitespace-nowrap">
                     <Link 
                       to={`/sorties/${s.id}`} 
-                      className="text-indigo-400 font-bold hover:text-indigo-300 hover:underline transition-colors tracking-wide"
+                      className="text-cyan-400 font-bold hover:text-cyan-300 hover:underline transition-colors tracking-wide"
                     >
                       {s.sortie_number}
                     </Link>
@@ -214,16 +214,16 @@ export function SortieBoard() {
                       
                       {/* Land Button */}
                       <button 
-                        className={`btn-secondary border-indigo-500/30 text-indigo-300 bg-indigo-500/10 hover:bg-indigo-500/20 px-3 py-1.5 text-[10px] font-semibold ${!can.landed(s) && "hidden"}`} 
+                        className={`btn-secondary border-cyan-500/30 text-cyan-300 bg-cyan-500/10 hover:bg-cyan-500/20 px-3 py-1.5 text-[10px] font-semibold ${!can.landed(s) && "hidden"}`} 
                         disabled={!can.landed(s)} 
                         onClick={() => mLanded.mutate(s.id)}
                       >
                         Mark Landed
                       </button>
 
-                      {/* Archive/Close Button */}
+                      {/* Close/Archive Button */}
                       <button 
-                        className={`btn-secondary border-violet-500/30 text-violet-300 bg-violet-500/10 hover:bg-violet-500/20 px-3 py-1.5 text-[10px] font-semibold ${!can.close(s) && "hidden"}`} 
+                        className={`btn-secondary border-sky-500/30 text-sky-300 bg-sky-500/10 hover:bg-sky-500/20 px-3 py-1.5 text-[10px] font-semibold ${!can.close(s) && "hidden"}`} 
                         disabled={!can.close(s)} 
                         onClick={() => mClose.mutate(s.id)}
                       >

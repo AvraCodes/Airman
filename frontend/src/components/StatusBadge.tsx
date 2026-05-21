@@ -4,11 +4,11 @@ import type { SortieStatus, AircraftStatus, TrainingStatus, DefectStatus, Defect
 
 const SORTIE_STATUS_STYLES: Record<SortieStatus, string> = {
   SCHEDULED:          "bg-slate-500/10    text-slate-350    border border-slate-700/30",
-  RELEASED:           "bg-indigo-500/10   text-indigo-300   border border-indigo-500/25",
+  RELEASED:           "bg-sky-500/10   text-sky-300   border border-sky-500/25",
   AIRBORNE:           "bg-emerald-500/20  text-emerald-300  border border-emerald-500/30 shadow-sm shadow-emerald-500/10 animate-pulse",
   LANDED:             "bg-teal-500/15     text-teal-300     border border-teal-500/25",
   TRAINING_SUBMITTED: "bg-amber-500/10    text-amber-300    border border-amber-500/25",
-  TRAINING_APPROVED:  "bg-violet-500/15    text-violet-300   border border-violet-500/25",
+  TRAINING_APPROVED:  "bg-cyan-500/15    text-cyan-300   border border-cyan-500/25",
   CLOSED:             "bg-slate-800/80    text-slate-400    border border-slate-700/40",
   CANCELLED:          "bg-rose-500/10     text-rose-300     border border-rose-500/20",
   AIRCRAFT_GROUNDED:  "bg-rose-500/15     text-rose-450     border border-rose-500/25",
@@ -27,8 +27,8 @@ export function SortieStatusBadge({ status }: { status: SortieStatus }) {
 
 const AIRCRAFT_STATUS_STYLES: Record<AircraftStatus, string> = {
   READY:       "bg-emerald-500/15   text-emerald-350  border border-emerald-500/25",
-  SCHEDULED:   "bg-indigo-500/10    text-indigo-300   border border-indigo-500/20",
-  AIRBORNE:    "bg-indigo-500/20    text-indigo-300   border border-indigo-500/30",
+  SCHEDULED:   "bg-blue-500/10    text-blue-300   border border-blue-500/20",
+  AIRBORNE:    "bg-cyan-500/20    text-cyan-300   border border-cyan-500/30",
   LANDED:      "bg-teal-500/15      text-teal-300     border border-teal-500/25",
   GROUNDED:    "bg-rose-500/15      text-rose-400     border border-rose-500/25",
   MAINTENANCE: "bg-amber-500/10     text-amber-300    border border-amber-500/20",

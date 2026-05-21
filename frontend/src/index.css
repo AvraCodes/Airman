@@ -5,29 +5,53 @@
 @tailwind utilities;
 
 :root {
-  --bg: 3 7 18;         /* slate-950/gray-950 */
-  --surface: 15 23 42;  /* slate-900 */
-  --border: 30 41 59;   /* slate-800 */
-  --accent: 99 102 241; /* indigo-500 */
-  --success: 16 185 129; /* emerald-500 */
-  --error: 244 63 94;   /* rose-500 */
-  --violet: 139 92 246; /* violet-500 */
+  --bg: #020617;
+  --text-primary: #f8fafc;
+  --text-secondary: #cbd5e1;
+  --text-muted: #64748b;
+  --card-bg: rgba(10, 18, 36, 0.55);
+  --card-border: rgba(30, 41, 59, 0.5);
+  --border-primary: #1e293b;
+  --input-bg: rgba(2, 6, 23, 0.7);
+  --bg-gradient: 
+    radial-gradient(circle at 50% 0%, rgba(6, 182, 212, 0.12), transparent 50%),
+    radial-gradient(circle at 100% 100%, rgba(37, 99, 235, 0.06), transparent 50%),
+    radial-gradient(circle at 0% 50%, rgba(14, 165, 233, 0.02), transparent 40%);
+  --bar-bg: rgba(10, 18, 36, 0.2);
+}
+
+.light {
+  --bg: #f0f4f8;
+  --text-primary: #0f172a;
+  --text-secondary: #334155;
+  --text-muted: #64748b;
+  --card-bg: rgba(255, 255, 255, 0.75);
+  --card-border: rgba(219, 228, 238, 0.85);
+  --border-primary: #cbd5e1;
+  --input-bg: rgba(255, 255, 255, 0.95);
+  --bg-gradient: 
+    radial-gradient(circle at 50% 0%, rgba(14, 165, 233, 0.08), transparent 50%),
+    radial-gradient(circle at 100% 100%, rgba(6, 182, 212, 0.04), transparent 50%),
+    radial-gradient(circle at 0% 50%, rgba(14, 165, 233, 0.02), transparent 40%);
+  --bar-bg: rgba(226, 232, 240, 0.75);
 }
 
 body {
-  @apply bg-[#030712] text-slate-300 antialiased selection:bg-indigo-500/30 selection:text-indigo-200;
-  background-image: 
-    radial-gradient(circle at 50% 0%, rgba(99, 102, 241, 0.12), transparent 50%),
-    radial-gradient(circle at 100% 100%, rgba(139, 92, 246, 0.08), transparent 50%),
-    radial-gradient(circle at 0% 50%, rgba(244, 63, 94, 0.03), transparent 40%);
+  background-color: var(--bg);
+  background-image: var(--bg-gradient);
+  color: var(--text-secondary);
+  @apply antialiased selection:bg-cyan-500/30 selection:text-cyan-200;
   background-attachment: fixed;
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 h1, h2, h3, h4, h5, h6, .page-title, .font-display {
   font-family: 'Sora', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  @apply text-slate-100 tracking-tight;
+  color: var(--text-primary);
+  @apply tracking-tight;
 }
+
 
 
 
@@ -45,7 +69,9 @@ h1, h2, h3, h4, h5, h6, .page-title, .font-display {
 
 @layer components {
   .app-card {
-    @apply rounded-2xl border border-slate-800/40 bg-slate-900/45 backdrop-blur-xl shadow-xl shadow-black/35 transition-all duration-300;
+    background-color: var(--card-bg);
+    border-color: var(--card-border);
+    @apply rounded-2xl border backdrop-blur-xl shadow-xl shadow-black/35 transition-all duration-300;
     position: relative;
     overflow: hidden;
   }
@@ -57,15 +83,17 @@ h1, h2, h3, h4, h5, h6, .page-title, .font-display {
     left: 0;
     width: 100%;
     height: 1px;
-    background: linear-gradient(90deg, transparent, rgba(99, 102, 241, 0.25), transparent);
+    background: linear-gradient(90deg, transparent, rgba(6, 182, 212, 0.25), transparent);
   }
 
   .page-title {
-    @apply text-xl font-bold tracking-tight text-slate-100;
+    color: var(--text-primary);
+    @apply text-xl font-bold tracking-tight;
   }
 
   .muted {
-    @apply text-[10px] font-semibold uppercase tracking-wider text-slate-400/80;
+    color: var(--text-muted);
+    @apply text-[10px] font-semibold uppercase tracking-wider;
   }
 
   .btn {
@@ -73,11 +101,14 @@ h1, h2, h3, h4, h5, h6, .page-title, .font-display {
   }
 
   .btn-primary {
-    @apply btn bg-gradient-to-r from-indigo-600 to-violet-600 text-white shadow-lg shadow-indigo-950/40 hover:from-indigo-500 hover:to-violet-500 hover:shadow-indigo-500/10 hover:shadow-xl;
+    @apply btn bg-gradient-to-r from-blue-600 to-cyan-600 text-white shadow-lg shadow-blue-950/40 hover:from-blue-500 hover:to-cyan-500 hover:shadow-cyan-500/10 hover:shadow-xl;
   }
 
   .btn-secondary {
-    @apply btn border border-slate-800/60 bg-slate-900/60 text-slate-300 hover:bg-slate-800/60 hover:text-slate-200;
+    border-color: var(--card-border);
+    background-color: var(--card-bg);
+    color: var(--text-secondary);
+    @apply btn border hover:bg-slate-800/10 hover:text-slate-900 dark:hover:text-slate-100;
   }
 
   .btn-danger {
@@ -89,9 +120,11 @@ h1, h2, h3, h4, h5, h6, .page-title, .font-display {
   }
 
   .input {
-    @apply w-full rounded-xl border border-slate-800 bg-slate-950/60 px-4 py-2.5 text-xs font-medium text-slate-200 outline-none ring-indigo-500/20 placeholder:text-slate-500 focus:border-indigo-500/50 focus:ring-4 transition-all duration-300;
+    background-color: var(--input-bg);
+    border-color: var(--border-primary);
+    color: var(--text-secondary);
+    @apply w-full rounded-xl border px-4 py-2.5 text-xs font-medium outline-none ring-cyan-500/20 placeholder:text-slate-500 focus:border-cyan-500/50 focus:ring-4 transition-all duration-300;
   }
-
 
   /* Elegant Status Pill */
   .badge-tac {
@@ -104,11 +137,11 @@ h1, h2, h3, h4, h5, h6, .page-title, .font-display {
   }
   .pulse-cyan::before {
     content: "";
-    @apply animate-ping absolute inline-flex h-full w-full rounded-full bg-indigo-400 opacity-75;
+    @apply animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-75;
   }
   .pulse-cyan::after {
     content: "";
-    @apply relative inline-flex rounded-full h-2 w-2 bg-indigo-500;
+    @apply relative inline-flex rounded-full h-2 w-2 bg-cyan-500;
   }
 
   .pulse-amber {
@@ -123,4 +156,371 @@ h1, h2, h3, h4, h5, h6, .page-title, .font-display {
     @apply relative inline-flex rounded-full h-1.5 w-1.5 bg-rose-500;
   }
 }
+
+/* -----------------------------------------
+   Premium Global Light Mode Theme Overrides
+   ----------------------------------------- */
+
+.light body {
+  @apply text-slate-700 !important;
+}
+
+.light h1, .light h2, .light h3, .light h4, .light h5, .light h6, .light .page-title, .light .font-display {
+  @apply text-slate-900 !important;
+}
+
+.light .app-card {
+  box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.04), 0 1px 3px rgba(0, 0, 0, 0.02) !important;
+}
+
+.light .btn-secondary {
+  @apply bg-white border-slate-200 text-slate-700 hover:bg-slate-50 hover:text-slate-900 !important;
+}
+
+.light .input {
+  @apply border-slate-200 bg-white text-slate-800 focus:border-cyan-500/50 focus:ring-cyan-500/10 placeholder:text-slate-400 !important;
+}
+
+.light select.input option {
+  @apply bg-white text-slate-900 !important;
+}
+
+.light .bg-slate-900\/15 {
+  background-color: var(--bar-bg) !important;
+  border-color: rgba(226, 232, 240, 0.95) !important;
+}
+
+.light .border-slate-850\/60 {
+  border-color: rgba(226, 232, 240, 0.95) !important;
+}
+
+.light .border-slate-850 {
+  border-color: rgba(226, 232, 240, 0.95) !important;
+}
+
+.light .bg-slate-950\/40 {
+  @apply bg-slate-50 border-slate-200/60 text-slate-700 !important;
+}
+
+.light .bg-slate-950\/30 {
+  @apply bg-slate-50 border-slate-200/60 text-slate-700 !important;
+}
+
+.light .bg-slate-950\/60 {
+  @apply bg-white border-slate-200 !important;
+}
+
+.light .text-slate-500 {
+  color: #64748b !important;
+}
+
+.light .text-slate-400 {
+  color: #475569 !important;
+}
+
+.light .text-slate-200 {
+  color: #1e293b !important;
+}
+
+.light .text-slate-250 {
+  color: #1e293b !important;
+}
+
+.light .text-indigo-400 {
+  color: #0284c7 !important;
+}
+
+.light .text-indigo-300 {
+  color: #0369a1 !important;
+}
+
+.light .text-indigo-200 {
+  color: #1e3a8a !important;
+}
+
+
+.light .divide-slate-800\/30 > * + * {
+  border-color: rgba(226, 232, 240, 0.8) !important;
+}
+
+.light .border-slate-800\/60 {
+  border-color: rgba(226, 232, 240, 0.8) !important;
+}
+
+.light .bg-slate-900\/40 {
+  @apply bg-slate-50 text-slate-600 !important;
+}
+
+.light tr.hover\:hover\:bg-slate-800\/10:hover {
+  @apply bg-slate-50/50 !important;
+}
+
+.light .border-slate-800 {
+  border-color: rgba(226, 232, 240, 0.9) !important;
+}
+
+.light .bg-slate-900\/60 {
+  @apply bg-slate-50 border-slate-200/80 !important;
+}
+
+.light .text-emerald-450 {
+  @apply text-emerald-600 !important;
+}
+
+.light .text-rose-450 {
+  @apply text-rose-600 !important;
+}
+
+.light .text-amber-450 {
+  @apply text-amber-600 !important;
+}
+
+.light .bg-slate-950\/80 {
+  @apply bg-white border-slate-200/80 text-slate-800 !important;
+}
+
+.light header {
+  background-color: rgba(255, 255, 255, 0.55) !important;
+  border-color: rgba(226, 232, 240, 0.85) !important;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.02) !important;
+}
+
+.light header h1 {
+  color: #0f172a !important;
+}
+
+.light header p {
+  color: #64748b !important;
+}
+
+.light header .bg-slate-950\/80 {
+  background-color: #ffffff !important;
+  border-color: #e2e8f0 !important;
+  color: #475569 !important;
+}
+
+.light header .text-indigo-400 {
+  color: #0284c7 !important;
+}
+
+.light header .text-slate-400 {
+  color: #475569 !important;
+}
+
+.light header nav a {
+  color: #64748b !important;
+}
+
+.light header nav a:hover {
+  color: #0f172a !important;
+}
+
+.light header nav a.border-cyan-500, .light header nav a.border-indigo-500 {
+  color: #0284c7 !important;
+  border-color: #06b6d4 !important;
+  font-weight: 700 !important;
+}
+
+.light header button {
+  border-color: #e2e8f0 !important;
+  background-color: #ffffff !important;
+  color: #475569 !important;
+}
+
+.light header button:hover {
+  background-color: #f8fafc !important;
+  color: #0f172a !important;
+}
+
+.light header button.bg-cyan-500\/10, .light header button.bg-indigo-500\/10 {
+  background-color: rgba(6, 182, 212, 0.08) !important;
+  color: #0284c7 !important;
+  border-color: rgba(6, 182, 212, 0.15) !important;
+}
+
+.light header button.bg-cyan-500\/10:hover, .light header button.bg-indigo-500\/10:hover {
+  background-color: rgba(6, 182, 212, 0.15) !important;
+  color: #0369a1 !important;
+}
+
+.light .bg-slate-900\/25 {
+  background-color: rgba(241, 245, 249, 0.5) !important;
+  border-color: rgba(226, 232, 240, 0.5) !important;
+}
+
+/* ==========================================================================
+   Tactical Cockpit HUD Grid, Industrial Brackets & Flight Telemetry Core
+   ========================================================================== */
+
+.hud-grid {
+  background-image: 
+    linear-gradient(rgba(6, 182, 212, 0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(6, 182, 212, 0.06) 1px, transparent 1px);
+  background-size: 28px 28px;
+}
+
+.light .hud-grid {
+  background-image: 
+    linear-gradient(rgba(14, 165, 233, 0.02) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(14, 165, 233, 0.02) 1px, transparent 1px);
+}
+
+.industrial-card {
+  position: relative;
+}
+
+.industrial-card::before,
+.industrial-card::after {
+  content: "";
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  border-color: rgba(6, 182, 212, 0.45);
+  border-style: solid;
+  pointer-events: none;
+  z-index: 10;
+  transition: border-color 0.3s ease;
+}
+
+.light .industrial-card::before,
+.light .industrial-card::after {
+  border-color: rgba(14, 165, 233, 0.25);
+}
+
+.industrial-card::before {
+  top: 0;
+  left: 0;
+  border-width: 2px 0 0 2px;
+}
+
+.industrial-card::after {
+  bottom: 0;
+  right: 0;
+  border-width: 0 2px 2px 0;
+}
+
+/* Industrial light mode compatibility overrides */
+.light .border-slate-800\/40 {
+  border-color: rgba(226, 232, 240, 0.8) !important;
+}
+
+.light .border-slate-850\/60 {
+  border-color: rgba(226, 232, 240, 0.85) !important;
+}
+
+.light .bg-slate-900\/35 {
+  background-color: rgba(241, 245, 249, 0.5) !important;
+  border-color: rgba(226, 232, 240, 0.85) !important;
+}
+
+.light .bg-indigo-950\/10 {
+  background-color: rgba(6, 182, 212, 0.04) !important;
+}
+
+.light .bg-indigo-950\/20 {
+  background-color: rgba(6, 182, 212, 0.06) !important;
+}
+
+.light .bg-indigo-950\/30 {
+  background-color: rgba(6, 182, 212, 0.08) !important;
+  border-color: rgba(6, 182, 212, 0.15) !important;
+}
+
+.light .border-indigo-900\/30 {
+  border-color: rgba(6, 182, 212, 0.18) !important;
+}
+
+.light .bg-indigo-500\/5 {
+  background-color: rgba(6, 182, 212, 0.03) !important;
+}
+
+.light .bg-violet-500\/5 {
+  background-color: rgba(14, 165, 233, 0.03) !important;
+}
+
+.light .bg-emerald-500\/5 {
+  background-color: rgba(16, 185, 129, 0.03) !important;
+}
+
+.light .bg-teal-500\/5 {
+  background-color: rgba(20, 184, 166, 0.03) !important;
+}
+
+.light .bg-rose-500\/5 {
+  background-color: rgba(244, 63, 94, 0.03) !important;
+}
+
+.light .bg-purple-500\/5 {
+  background-color: rgba(168, 85, 247, 0.03) !important;
+}
+
+.light .bg-indigo-500\/10 {
+  background-color: rgba(6, 182, 212, 0.08) !important;
+  border-color: rgba(6, 182, 212, 0.15) !important;
+}
+
+.light .text-indigo-300\/80 {
+  color: rgba(3, 105, 161, 0.85) !important;
+}
+
+.light .text-slate-350 {
+  color: #334155 !important;
+}
+
+.light .text-slate-450 {
+  color: #475569 !important;
+}
+
+.light .bg-\[\#090d16\]\/95 {
+  background-color: rgba(255, 255, 255, 0.98) !important;
+  border-color: rgba(226, 232, 240, 0.95) !important;
+}
+
+/* Cyber-cyan & Sky-blue Light Mode Contrast Overrides */
+.light .text-cyan-400,
+.light .text-sky-400 {
+  color: #0284c7 !important;
+}
+
+.light .text-cyan-300,
+.light .text-sky-300 {
+  color: #0369a1 !important;
+}
+
+.light .text-cyan-200,
+.light .text-sky-200 {
+  color: #1e3a8a !important;
+}
+
+.light .bg-cyan-950\/10,
+.light .bg-cyan-500\/5,
+.light .bg-cyan-500\/10 {
+  background-color: rgba(6, 182, 212, 0.06) !important;
+  border-color: rgba(6, 182, 212, 0.15) !important;
+}
+
+.light .border-cyan-900\/30,
+.light .border-cyan-500\/30,
+.light .border-cyan-500\/25,
+.light .border-cyan-500\/10 {
+  border-color: rgba(6, 182, 212, 0.22) !important;
+}
+
+.light .bg-cyan-950\/30,
+.light .bg-cyan-950\/20 {
+  background-color: rgba(6, 182, 212, 0.08) !important;
+  border-color: rgba(6, 182, 212, 0.15) !important;
+}
+
+.light .bg-cyan-500\/10 {
+  background-color: rgba(6, 182, 212, 0.08) !important;
+}
+
+.light .text-cyan-400\/80 {
+  color: rgba(2, 132, 199, 0.85) !important;
+}
+
+
+
+
 

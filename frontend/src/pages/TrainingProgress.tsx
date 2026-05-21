@@ -90,7 +90,7 @@ export function TrainingProgress() {
         <div className="app-card border-slate-800/40 p-6 flex flex-col justify-between space-y-4">
           <div>
             <h3 className="text-xs font-bold uppercase tracking-wider text-slate-200 mb-1 flex items-center gap-2">
-              <span className="h-1.5 w-1.5 rounded-full bg-indigo-400"></span>
+              <span className="h-1.5 w-1.5 rounded-full bg-cyan-400"></span>
               Active Flight Selection
             </h3>
             <p className="text-[11px] text-slate-500 font-medium">Select a sortie reference to record pilot performance or inspect records.</p>
@@ -111,7 +111,7 @@ export function TrainingProgress() {
         {canInstructor && (
           <div className="app-card border-slate-800/40 p-6">
             <h3 className="text-xs font-bold uppercase tracking-wider text-slate-200 mb-3 flex items-center gap-2">
-              <span className="h-1.5 w-1.5 rounded-full bg-violet-400"></span>
+              <span className="h-1.5 w-1.5 rounded-full bg-cyan-400"></span>
               Performance Scoring Matrix
             </h3>
             <div className="mt-4 grid grid-cols-2 gap-3">
@@ -147,7 +147,10 @@ export function TrainingProgress() {
       {canCfi && (
         <div className="app-card border-slate-800/40 p-6 mt-4">
           <h3 className="text-xs font-bold uppercase tracking-wider text-slate-200 mb-2 flex items-center gap-2">
-            <span>🎖️</span> Command Review Directive
+            <svg className="w-4 h-4 text-cyan-400 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.2} d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" />
+            </svg>
+            <span>COMMAND REVIEW DIRECTIVE</span>
           </h3>
           <p className="text-[11px] text-slate-500 font-medium mb-3">If rejecting a drafted training score, provide constructive training remarks (min 10 characters).</p>
           <input className="input" value={rejectRemarks} onChange={(e) => setRejectRemarks(e.target.value)} placeholder="Provide explanation for rejection..." />
@@ -156,7 +159,7 @@ export function TrainingProgress() {
 
       {/* Action Toast Messages */}
       {message && (
-        <div className="rounded-xl border border-indigo-500/10 bg-indigo-500/5 px-4 py-3 text-xs text-indigo-300 font-semibold shadow-md animate-pulse">
+        <div className="rounded-xl border border-cyan-500/10 bg-cyan-500/5 px-4 py-3 text-xs text-cyan-300 font-semibold shadow-md animate-pulse">
           System Notice: {message}
         </div>
       )}
@@ -183,15 +186,15 @@ export function TrainingProgress() {
             <div className="grid grid-cols-3 gap-3 text-center text-xs font-bold bg-slate-950/45 p-3 rounded-xl border border-slate-900/80 max-w-md">
               <div>
                 <span className="block text-[8px] uppercase tracking-wider text-slate-500 mb-1">Maneuver Score</span>
-                <span className="text-indigo-400 text-sm font-extrabold">{t.maneuver_score} / 5</span>
+                <span className="text-cyan-400 text-sm font-extrabold">{t.maneuver_score} / 5</span>
               </div>
               <div className="border-x border-slate-900">
                 <span className="block text-[8px] uppercase tracking-wider text-slate-500 mb-1">Comms Quality</span>
-                <span className="text-indigo-400 text-sm font-extrabold">{t.communication_score} / 5</span>
+                <span className="text-cyan-400 text-sm font-extrabold">{t.communication_score} / 5</span>
               </div>
               <div>
                 <span className="block text-[8px] uppercase tracking-wider text-slate-500 mb-1">Situational Awareness</span>
-                <span className="text-indigo-400 text-sm font-extrabold">{t.situational_awareness_score} / 5</span>
+                <span className="text-cyan-400 text-sm font-extrabold">{t.situational_awareness_score} / 5</span>
               </div>
             </div>
 

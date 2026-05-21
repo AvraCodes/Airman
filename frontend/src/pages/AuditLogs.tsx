@@ -57,7 +57,7 @@ export function AuditLogs() {
             <tbody className="divide-y divide-slate-800/30 text-slate-300">
               {rows.map((r) => (
                 <tr key={r.id} className="hover:bg-slate-800/10 transition-colors">
-                  <td className="px-5 py-3.5 font-medium text-indigo-400">Actor #{r.actor_id}</td>
+                  <td className="px-5 py-3.5 font-medium text-cyan-400">Actor #{r.actor_id}</td>
                   <td className="px-5 py-3.5">
                     <span className="inline-flex items-center rounded-lg bg-slate-800/50 px-2 py-1 text-[10px] font-semibold text-slate-200 border border-slate-700/30">
                       {r.action}

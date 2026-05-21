@@ -106,33 +106,33 @@ export function Login() {
       <div className="w-full max-w-5xl grid md:grid-cols-12 gap-6 items-stretch">
         
         {/* LEFT COLUMN: Operations Console Login Form (5 cols md) */}
-        <div className="md:col-span-5 flex flex-col justify-between app-card border-slate-800/40 p-6 md:p-8">
+        <div className="md:col-span-5 flex flex-col justify-between app-card border-slate-800/40 p-6 md:p-8 hud-grid industrial-card shadow-2xl">
           <div>
             {/* Top HUD Brand header */}
             <div className="flex items-center gap-2.5 pb-4 border-b border-slate-800/40">
-              <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-indigo-950/30 border border-indigo-900/30 shadow-inner">
-                <svg className="h-5 w-5 text-indigo-400 filter drop-shadow-[0_0_6px_rgba(99,102,241,0.6)]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}>
+              <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-cyan-950/30 border border-cyan-900/30 shadow-inner">
+                <svg className="h-5 w-5 text-cyan-400 filter drop-shadow-[0_0_6px_rgba(6,182,212,0.6)]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.2}>
                   <path strokeLinecap="round" strokeLinejoin="round" d="M6 12L3.269 3.126A59.768 59.768 0 0121.485 12 59.77 59.77 0 013.27 20.876L5.999 12zm0 0h7.5" />
                 </svg>
               </div>
               <div>
-                <h1 className="text-sm font-bold text-slate-100 flex items-center gap-1.5">
-                  Skynet Console
+                <h1 className="text-sm font-black text-slate-100 flex items-center gap-1.5 font-display uppercase tracking-widest">
+                  SKYNET // GATEWAY
                   <span className="pulse-cyan"></span>
                 </h1>
-                <p className="text-[10px] font-medium tracking-wide text-slate-500 uppercase">
-                  Secure Flight Portal
+                <p className="text-[9px] font-mono tracking-widest text-slate-500 uppercase font-bold">
+                  SECURE FLIGHT PORTAL
                 </p>
               </div>
             </div>
 
             {/* Login Status bar */}
             <div className="mt-5 rounded-xl border border-slate-800/40 bg-slate-900/25 px-4 py-2.5 text-xs text-slate-400 font-sans leading-relaxed">
-              Welcome back. Please select an operational preset account or enter your credentials to initiate your session.
+              Welcome back. Please select an operational preset account or enter your credentials to initiate your secure session.
             </div>
 
-            <h2 className="text-sm font-bold text-slate-200 mt-6 uppercase tracking-wider">
-              Operator Sign In
+            <h2 className="text-xs font-black text-cyan-400 mt-6 uppercase tracking-widest font-display">
+              OPERATOR SIGN IN
             </h2>
 
             {error && (
@@ -144,60 +144,63 @@ export function Login() {
 
             <form onSubmit={handleSubmit} className="mt-4 space-y-4 font-sans">
               <div>
-                <label className="block text-[10px] font-semibold text-slate-400 mb-1.5 uppercase tracking-wider">Email Address</label>
+                <label className="block text-[9px] font-bold text-slate-450 mb-1.5 uppercase tracking-wider">Email Address</label>
                 <input
                   type="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   required
                   placeholder="name@airman.local"
-                  className="input font-sans text-xs"
+                  className="input font-sans text-xs font-bold"
                 />
               </div>
               
               <div>
-                <label className="block text-[10px] font-semibold text-slate-400 mb-1.5 uppercase tracking-wider">Password</label>
+                <label className="block text-[9px] font-bold text-slate-450 mb-1.5 uppercase tracking-wider">Password</label>
                 <input
                   type="password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   required
                   placeholder="••••••••"
-                  className="input font-sans text-xs"
+                  className="input font-sans text-xs font-bold"
                 />
               </div>
 
               <button
                 type="submit"
                 disabled={isLoading}
-                className="w-full btn-primary py-2.5 uppercase tracking-wider text-xs font-bold"
+                className="w-full btn-primary py-2.5 uppercase tracking-widest text-xs font-black font-display cursor-pointer"
               >
                 {isLoading ? "Validating Session..." : "Initialize Session"}
               </button>
             </form>
           </div>
 
-          <div className="mt-6 pt-4 border-t border-slate-800/40 text-[10px] text-slate-500 uppercase flex items-center justify-between">
-            <span>Secure System</span>
-            <span>v1.0.4</span>
+          <div className="mt-6 pt-4 border-t border-slate-800/40 text-[9px] font-mono tracking-widest text-slate-500 uppercase flex items-center justify-between">
+            <span>SECURE SYSTEM</span>
+            <span>V1.0.4</span>
           </div>
         </div>
 
         {/* RIGHT COLUMN: Quick-Presets and Detailed Access Clearance Guide (7 cols md) */}
-        <div className="md:col-span-7 flex flex-col justify-between app-card border-slate-800/40 p-6 md:p-8">
+        <div className="md:col-span-7 flex flex-col justify-between app-card border-slate-800/40 p-6 md:p-8 hud-grid industrial-card shadow-2xl">
           <div>
             {/* Header info */}
             <div className="flex items-center justify-between border-b border-slate-800/40 pb-4">
               <div>
-                <h2 className="text-sm font-bold uppercase tracking-wider text-slate-200">
-                  ⚡ Station Roles & Presets
+                <h2 className="text-sm font-black uppercase tracking-widest text-slate-200 flex items-center gap-1.5 font-display">
+                  <svg className="h-4.5 w-4.5 text-cyan-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.2}>
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" />
+                  </svg>
+                  STATION ROLES & PRESETS
                 </h2>
-                <p className="text-[10px] text-slate-500 uppercase tracking-wider mt-0.5">
+                <p className="text-[9px] text-slate-500 uppercase tracking-widest mt-0.5 font-bold">
                   Click a card to instantly authenticate and log in
                 </p>
               </div>
-              <span className="text-[10px] font-semibold text-indigo-400 bg-indigo-950/20 px-2.5 py-0.5 rounded-full border border-indigo-900/30">
-                PRESETS ENABLED
+              <span className="text-[9px] font-mono font-bold text-cyan-400 bg-cyan-950/20 px-2.5 py-0.5 rounded-full border border-cyan-900/30 tracking-widest">
+                PRESETS // BYPASS
               </span>
             </div>
 
@@ -210,37 +213,39 @@ export function Login() {
                   onClick={() => fillDemo(acc)}
                   onMouseEnter={() => setHoveredPreset(acc)}
                   onMouseLeave={() => setHoveredPreset(null)}
-                  className="relative flex flex-col justify-between items-start rounded-xl border border-slate-800/60 bg-slate-900/35 p-3 hover:bg-indigo-950/10 hover:border-indigo-500/30 transition-all text-left duration-300 select-none cursor-pointer hover:scale-[1.02] shadow-sm hover:shadow-md"
+                  className="relative flex flex-col justify-between items-start rounded-xl border border-slate-800/60 bg-slate-900/35 p-3 hover:bg-cyan-950/10 hover:border-cyan-500/30 transition-all text-left duration-300 select-none cursor-pointer hover:scale-[1.02] shadow-sm hover:shadow-md"
                 >
                   <div className="w-full flex items-center justify-between">
-                    <span className="text-[11px] font-bold text-slate-250 tracking-wide">
+                    <span className="text-[11px] font-black text-slate-250 tracking-wider font-display uppercase">
                       {acc.label}
                     </span>
-                    <span className="h-1.5 w-1.5 rounded-full bg-indigo-400 animate-pulse"></span>
+                    <span className="h-1.5 w-1.5 rounded-full bg-cyan-400 animate-pulse"></span>
                   </div>
-                  <span className="mt-1 text-[9px] font-medium text-indigo-300/80 uppercase tracking-wider">
-                    {acc.clearance}
+                  <span className="mt-1 text-[8px] font-mono font-bold text-cyan-400/80 uppercase tracking-widest">
+                    [{acc.role.replace(/_/, " ")}]
                   </span>
                 </button>
               ))}
             </div>
 
             {/* Live Hover Info Box / Role Info */}
-            <div className="mt-5 rounded-xl border border-indigo-500/10 bg-indigo-500/5 p-4 relative min-h-[90px] flex flex-col justify-center transition-all duration-350">
-              <div className="absolute top-0 right-0 w-2.5 h-2.5 bg-slate-800/40 rounded-bl flex items-center justify-center text-[7px] font-bold text-slate-400 font-mono">ℹ️</div>
+            <div className="mt-5 rounded-xl border border-cyan-500/10 bg-cyan-500/5 p-4 relative min-h-[95px] flex flex-col justify-center transition-all duration-350">
+              <div className="absolute top-0 right-0 px-2 py-0.5 bg-slate-800/40 rounded-bl text-[8px] font-bold text-cyan-300 font-mono uppercase tracking-widest border-l border-b border-cyan-500/10">
+                SYS // INFO
+              </div>
               
               {hoveredPreset ? (
                 <div>
                   <div className="flex items-center gap-2">
-                    <span className="text-[10px] font-bold text-indigo-400 uppercase tracking-wider">
+                    <span className="text-[10px] font-black text-cyan-400 uppercase tracking-widest font-display">
                       Clearance: {hoveredPreset.role}
                     </span>
                     <span className="text-[8px] text-slate-500 font-bold">|</span>
-                    <span className="text-[9px] text-indigo-300/80 font-bold uppercase tracking-wider">
+                    <span className="text-[9px] text-cyan-300/85 font-mono font-bold uppercase tracking-wider">
                       {hoveredPreset.clearance}
                     </span>
                   </div>
-                  <p className="mt-1.5 text-xs text-slate-350 leading-relaxed font-sans">
+                  <p className="mt-1.5 text-xs text-slate-350 leading-relaxed font-sans font-medium">
                     {hoveredPreset.summary}
                   </p>
                 </div>
@@ -248,11 +253,11 @@ export function Login() {
                 <div>
                   <div className="flex items-center gap-1.5">
                     <span className="pulse-cyan"></span>
-                    <span className="text-[10px] font-bold text-indigo-400 uppercase tracking-wider">
-                      Operator Access Profile
+                    <span className="text-[10px] font-black text-cyan-400 uppercase tracking-widest font-display">
+                      OPERATOR ACCESS PROFILE
                     </span>
                   </div>
-                  <p className="mt-1.5 text-xs text-slate-400 leading-relaxed font-sans">
+                  <p className="mt-1.5 text-xs text-slate-450 leading-relaxed font-sans font-medium">
                     Hover over any preset role card above to inspect their operational clearance profile and system permissions.
                   </p>
                 </div>
@@ -260,20 +265,23 @@ export function Login() {
             </div>
 
             {/* Plain English Guide Panel */}
-            <div className="mt-5 rounded-xl border border-indigo-900/10 bg-indigo-950/10 p-4">
-              <h3 className="text-xs font-bold text-indigo-400 uppercase tracking-wider flex items-center gap-1.5">
-                <span>📖</span> Quick Operations Guide
+            <div className="mt-5 rounded-xl border border-cyan-900/10 bg-cyan-950/10 p-4">
+              <h3 className="text-xs font-black text-cyan-400 uppercase tracking-widest flex items-center gap-1.5 font-display">
+                <svg className="h-4 w-4 text-cyan-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.2}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                </svg>
+                QUICK OPERATIONS GUIDE
               </h3>
-              <p className="mt-1.5 text-xs text-slate-350 leading-relaxed font-sans">
+              <p className="mt-1.5 text-xs text-slate-350 leading-relaxed font-sans font-medium">
                 Skynet oversees a complete flight operations cycle.
                 To test the system, simply click **Dispatcher** preset to schedule and launch a flight. Once landed, click **Instructor** to grade the flight performance, and finally **CFI** to approve and close the logs. For technical issues, log in as the **Maintenance Officer** to clear defects!
               </p>
             </div>
           </div>
 
-          <div className="mt-6 pt-4 border-t border-slate-800/40 flex items-center justify-between text-[10px] text-slate-500 uppercase">
-            <span>Base Status: Nominal</span>
-            <span>Link Secured</span>
+          <div className="mt-6 pt-4 border-t border-slate-800/40 flex items-center justify-between text-[9px] font-mono tracking-widest text-slate-500 uppercase">
+            <span>BASE STATUS: NOMINAL</span>
+            <span>OPERATIONAL LINK SECURED</span>
           </div>
         </div>
 

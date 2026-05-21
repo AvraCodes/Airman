@@ -29,7 +29,7 @@ export function Defects() {
 
       <div className="grid gap-4 md:grid-cols-2">
         {data.map((d) => (
-          <div key={d.id} className="app-card p-5 hover:border-slate-700/60 transition-all hover:shadow-indigo-500/5 hover:-translate-y-0.5 duration-200">
+          <div key={d.id} className="app-card p-5 hover:border-slate-700/60 transition-all hover:shadow-cyan-500/5 hover:-translate-y-0.5 duration-200">
             <div className="flex items-start justify-between">
               <div>
                 <h3 className="text-sm font-bold text-slate-200 tracking-tight">Defect #{d.id} · <span className="text-rose-400 font-semibold">{d.severity} Severity</span></h3>
