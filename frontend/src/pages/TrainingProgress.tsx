@@ -74,79 +74,147 @@ export function TrainingProgress() {
   });
 
   return (
-    <section>
-      <h2 className="page-title">Training Progress Form</h2>
-      <div className="mt-4 grid gap-3 lg:grid-cols-2">
-        <div className="rounded-xl border border-slate-200 p-4">
-          <p className="font-semibold text-slate-800">Select Sortie</p>
-          <select className="input mt-2" value={sortieId} onChange={(e) => setSortieId(Number(e.target.value))}>
-            {sorties.map((s: any) => (
-              <option key={s.id} value={s.id}>
-                {s.sortie_number} ({s.status})
-              </option>
-            ))}
-          </select>
-          <button className="btn-secondary mt-2 w-full" onClick={() => refetch()}>Refresh Training Records</button>
+    <section className="space-y-6 font-sans">
+      
+      {/* Header Panel */}
+      <div className="border-b border-slate-850 pb-4">
+        <h2 className="page-title text-2xl font-bold tracking-tight text-slate-100">Flight Training Evaluation</h2>
+        <p className="text-xs font-medium text-slate-500 mt-1">
+          Draft performance grades, evaluate cadet maneuvers, and review chief flying instructor command approvals.
+        </p>
+      </div>
+
+      <div className="mt-4 grid gap-5 lg:grid-cols-2">
+        
+        {/* Left Card: Sortie Selector */}
+        <div className="app-card border-slate-800/40 p-6 flex flex-col justify-between space-y-4">
+          <div>
+            <h3 className="text-xs font-bold uppercase tracking-wider text-slate-200 mb-1 flex items-center gap-2">
+              <span className="h-1.5 w-1.5 rounded-full bg-indigo-400"></span>
+              Active Flight Selection
+            </h3>
+            <p className="text-[11px] text-slate-500 font-medium">Select a sortie reference to record pilot performance or inspect records.</p>
+            <select className="input mt-3.5 font-medium" value={sortieId} onChange={(e) => setSortieId(Number(e.target.value))}>
+              {sorties.map((s: any) => (
+                <option key={s.id} value={s.id} className="bg-slate-950 text-slate-100">
+                  {s.sortie_number} — Status: {s.status.replace(/_/g, " ")}
+                </option>
+              ))}
+            </select>
+          </div>
+          <button className="btn-secondary w-full py-2.5" onClick={() => refetch()}>
+            Sync Training Logs
+          </button>
         </div>
 
+        {/* Right Card: Instructor Evaluation */}
         {canInstructor && (
-          <div className="rounded-xl border border-slate-200 p-4">
-            <p className="font-semibold text-slate-800">Instructor Evaluation</p>
-            <div className="mt-2 grid grid-cols-2 gap-2">
+          <div className="app-card border-slate-800/40 p-6">
+            <h3 className="text-xs font-bold uppercase tracking-wider text-slate-200 mb-3 flex items-center gap-2">
+              <span className="h-1.5 w-1.5 rounded-full bg-violet-400"></span>
+              Performance Scoring Matrix
+            </h3>
+            <div className="mt-4 grid grid-cols-2 gap-3">
               <div>
-                <label className="text-xs text-slate-500">Maneuver (1-5)</label>
-                <input className="input mt-1" type="number" min={1} max={5} value={scores.maneuver} onChange={(e) => setScores((s) => ({ ...s, maneuver: Number(e.target.value) }))} />
+                <label className="block text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-1.5">Maneuver Score (1-5)</label>
+                <input className="input" type="number" min={1} max={5} value={scores.maneuver} onChange={(e) => setScores((s) => ({ ...s, maneuver: Number(e.target.value) }))} />
               </div>
               <div>
-                <label className="text-xs text-slate-500">Communication (1-5)</label>
-                <input className="input mt-1" type="number" min={1} max={5} value={scores.comms} onChange={(e) => setScores((s) => ({ ...s, comms: Number(e.target.value) }))} />
+                <label className="block text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-1.5">Communication (1-5)</label>
+                <input className="input" type="number" min={1} max={5} value={scores.comms} onChange={(e) => setScores((s) => ({ ...s, comms: Number(e.target.value) }))} />
               </div>
               <div>
-                <label className="text-xs text-slate-500">Situational Awareness (1-5)</label>
-                <input className="input mt-1" type="number" min={1} max={5} value={scores.sa} onChange={(e) => setScores((s) => ({ ...s, sa: Number(e.target.value) }))} />
+                <label className="block text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-1.5">Situational (1-5)</label>
+                <input className="input" type="number" min={1} max={5} value={scores.sa} onChange={(e) => setScores((s) => ({ ...s, sa: Number(e.target.value) }))} />
               </div>
               <div>
-                <label className="text-xs text-slate-500">Lesson Type</label>
-                <input className="input mt-1" disabled value={selectedSortie?.lesson_type || ""} />
+                <label className="block text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-1.5">Lesson Type</label>
+                <input className="input opacity-60" disabled value={selectedSortie?.lesson_type || "None"} />
               </div>
             </div>
-            <div className="mt-3">
-              <label className="text-xs text-slate-500">Flight Evaluation Remarks (Mandatory)</label>
-              <textarea className="input mt-1 h-20 resize-none" value={scores.remarks} onChange={(e) => setScores((s) => ({ ...s, remarks: e.target.value }))} placeholder="Provide detailed training remarks..." />
+            <div className="mt-4">
+              <label className="block text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-1.5">Flight Performance Summary Remarks</label>
+              <textarea className="input h-20 resize-none" value={scores.remarks} onChange={(e) => setScores((s) => ({ ...s, remarks: e.target.value }))} placeholder="Provide comments on cadet maneuvers, compliance, or concerns..." />
             </div>
-            <button className="btn-primary mt-3 w-full" disabled={create.isPending || !scores.remarks.trim()} onClick={() => create.mutate()}>Create Record (Draft)</button>
+            <button className="btn-primary mt-4 w-full py-2.5 font-bold" disabled={create.isPending || !scores.remarks.trim()} onClick={() => create.mutate()}>
+              Draft Evaluation Report
+            </button>
           </div>
         )}
       </div>
 
+      {/* CFI Review Comments Section */}
       {canCfi && (
-        <div className="mt-4 rounded-xl border border-slate-200 p-4">
-          <p className="font-semibold text-slate-800">CFI Reject Reason (Min 10 characters required for rejection)</p>
-          <input className="input mt-2" value={rejectRemarks} onChange={(e) => setRejectRemarks(e.target.value)} placeholder="Provide explanation for rejection..." />
+        <div className="app-card border-slate-800/40 p-6 mt-4">
+          <h3 className="text-xs font-bold uppercase tracking-wider text-slate-200 mb-2 flex items-center gap-2">
+            <span>🎖️</span> Command Review Directive
+          </h3>
+          <p className="text-[11px] text-slate-500 font-medium mb-3">If rejecting a drafted training score, provide constructive training remarks (min 10 characters).</p>
+          <input className="input" value={rejectRemarks} onChange={(e) => setRejectRemarks(e.target.value)} placeholder="Provide explanation for rejection..." />
         </div>
       )}
 
-      {message && <p className="mt-3 text-sm text-slate-700 font-semibold p-3 bg-slate-100 rounded-xl">{message}</p>}
+      {/* Action Toast Messages */}
+      {message && (
+        <div className="rounded-xl border border-indigo-500/10 bg-indigo-500/5 px-4 py-3 text-xs text-indigo-300 font-semibold shadow-md animate-pulse">
+          System Notice: {message}
+        </div>
+      )}
 
-      <div className="mt-4 space-y-2">
-        {isLoading && <p className="muted">Loading training records...</p>}
-        {!data.length && !isLoading && <p className="muted">No training progress records registered for this sortie.</p>}
+      {/* Registered Records Log */}
+      <div className="mt-6 space-y-4">
+        <h3 className="text-xs font-bold uppercase tracking-wider text-slate-300">Dossier Evaluation Records</h3>
+        
+        {isLoading && <p className="text-xs text-slate-500 animate-pulse">Retrieving student logs...</p>}
+        {!data.length && !isLoading && (
+          <p className="text-xs text-slate-500 py-3">No evaluations currently logged for this sortie profile.</p>
+        )}
+        
         {data.map((t: any) => (
-          <div key={t.id} className="rounded-xl border border-slate-200 p-4">
-            <div className="flex items-center justify-between">
-              <p className="font-semibold">Training Record #{t.id}</p>
+          <div key={t.id} className="app-card border-slate-850 bg-slate-900/10 p-5 space-y-3.5">
+            <div className="flex items-center justify-between border-b border-slate-850/60 pb-3">
+              <div>
+                <span className="text-[10px] font-bold text-slate-500 uppercase tracking-wider">Evaluation ID Reference</span>
+                <p className="text-xs font-bold text-slate-250 mt-0.5">Record Entry #{t.id}</p>
+              </div>
               <StatusBadge value={t.status} />
             </div>
-            <div className="mt-2 grid grid-cols-3 gap-2 text-xs text-slate-500 bg-slate-50 p-2 rounded-lg">
-              <div>Maneuver: <span className="font-bold text-slate-800">{t.maneuver_score}</span></div>
-              <div>Communication: <span className="font-bold text-slate-800">{t.communication_score}</span></div>
-              <div>SA: <span className="font-bold text-slate-800">{t.situational_awareness_score}</span></div>
+
+            <div className="grid grid-cols-3 gap-3 text-center text-xs font-bold bg-slate-950/45 p-3 rounded-xl border border-slate-900/80 max-w-md">
+              <div>
+                <span className="block text-[8px] uppercase tracking-wider text-slate-500 mb-1">Maneuver Score</span>
+                <span className="text-indigo-400 text-sm font-extrabold">{t.maneuver_score} / 5</span>
+              </div>
+              <div className="border-x border-slate-900">
+                <span className="block text-[8px] uppercase tracking-wider text-slate-500 mb-1">Comms Quality</span>
+                <span className="text-indigo-400 text-sm font-extrabold">{t.communication_score} / 5</span>
+              </div>
+              <div>
+                <span className="block text-[8px] uppercase tracking-wider text-slate-500 mb-1">Situational Awareness</span>
+                <span className="text-indigo-400 text-sm font-extrabold">{t.situational_awareness_score} / 5</span>
+              </div>
             </div>
-            <p className="text-sm text-slate-700 mt-2 bg-white border border-slate-100 p-2 rounded-lg italic">"{t.remarks || 'No remarks recorded'}"</p>
+
+            <p className="text-xs text-slate-350 bg-slate-950/40 p-3.5 rounded-xl border border-slate-850/30 italic leading-relaxed">
+              Remarks: "{t.remarks || 'No performance remarks recorded.'}"
+            </p>
+
             <div className="mt-3 flex flex-wrap gap-2">
-              {canInstructor && <button className="btn-secondary" disabled={submit.isPending || (t.status !== "DRAFT" && t.status !== "REJECTED")} onClick={() => submit.mutate(t.id)}>Submit to CFI</button>}
-              {canCfi && <button className="btn-primary" disabled={approve.isPending || t.status !== "SUBMITTED"} onClick={() => approve.mutate(t.id)}>Approve</button>}
-              {canCfi && <button className="btn-secondary border-rose-200 text-rose-600 hover:bg-rose-50" disabled={reject.isPending || t.status !== "SUBMITTED" || rejectRemarks.trim().length < 10} onClick={() => reject.mutate(t.id)}>Reject</button>}
+              {canInstructor && (t.status === "DRAFT" || t.status === "REJECTED") && (
+                <button className="btn-primary py-2 px-4 text-[10px] font-semibold" disabled={submit.isPending} onClick={() => submit.mutate(t.id)}>
+                  Submit to CFI
+                </button>
+              )}
+              {canCfi && t.status === "SUBMITTED" && (
+                <button className="btn-success py-2 px-4 text-[10px] font-semibold" disabled={approve.isPending} onClick={() => approve.mutate(t.id)}>
+                  Approve Record
+                </button>
+              )}
+              {canCfi && t.status === "SUBMITTED" && (
+                <button className="btn-secondary border-rose-500/20 text-rose-450 hover:bg-rose-950/20 py-2 px-4 text-[10px] font-semibold" disabled={reject.isPending || rejectRemarks.trim().length < 10} onClick={() => reject.mutate(t.id)}>
+                  Reject Report
+                </button>
+              )}
             </div>
           </div>
         ))}

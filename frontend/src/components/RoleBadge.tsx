@@ -1,12 +1,12 @@
 import type { Role } from "../types";
 
 const ROLE_STYLES: Record<Role, string> = {
-  ADMIN:               "bg-purple-100 text-purple-800 border-purple-200",
-  DISPATCHER:          "bg-blue-100   text-blue-800   border-blue-200",
-  INSTRUCTOR:          "bg-amber-100  text-amber-800  border-amber-200",
-  CFI:                 "bg-emerald-100 text-emerald-800 border-emerald-200",
-  CADET:               "bg-sky-100    text-sky-800    border-sky-200",
-  MAINTENANCE_OFFICER: "bg-orange-100 text-orange-800 border-orange-200",
+  ADMIN:               "bg-purple-500/10 text-purple-300 border-purple-500/25",
+  DISPATCHER:          "bg-indigo-500/10 text-indigo-300 border-indigo-500/25",
+  INSTRUCTOR:          "bg-amber-500/10 text-amber-300 border-amber-500/25",
+  CFI:                 "bg-violet-500/15 text-violet-300 border-violet-500/25",
+  CADET:               "bg-teal-500/10 text-teal-350 border-teal-500/25",
+  MAINTENANCE_OFFICER: "bg-rose-500/10 text-rose-350 border-rose-500/25",
 };
 
 const ROLE_LABELS: Record<Role, string> = {

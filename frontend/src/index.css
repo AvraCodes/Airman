@@ -1,117 +1,119 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 :root {
-  --bg: 2 6 23;      /* slate-950 */
+  --bg: 3 7 18;         /* slate-950/gray-950 */
   --surface: 15 23 42;  /* slate-900 */
-  --border: 51 65 85;   /* slate-700 */
-  --accent: 245 158 11; /* amber-500 */
+  --border: 30 41 59;   /* slate-800 */
+  --accent: 99 102 241; /* indigo-500 */
   --success: 16 185 129; /* emerald-500 */
-  --error: 239 68 68;   /* red-500 */
-  --cyan: 6 182 212;    /* cyan-500 */
+  --error: 244 63 94;   /* rose-500 */
+  --violet: 139 92 246; /* violet-500 */
 }
 
 body {
-  @apply bg-slate-950 text-slate-100 antialiased selection:bg-amber-500/30 selection:text-amber-200;
+  @apply bg-[#030712] text-slate-100 antialiased selection:bg-indigo-500/30 selection:text-indigo-200;
   background-image: 
-    radial-gradient(circle at 50% 0%, rgba(6, 182, 212, 0.15), transparent 45%),
-    radial-gradient(circle at 0% 100%, rgba(245, 158, 11, 0.05), transparent 50%),
-    linear-gradient(rgba(15, 23, 42, 0.3) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(15, 23, 42, 0.3) 1px, transparent 1px);
-  background-size: 100% 100%, 100% 100%, 20px 20px, 20px 20px;
-  font-family: 'Courier New', Courier, monospace, ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas;
+    radial-gradient(circle at 50% 0%, rgba(99, 102, 241, 0.12), transparent 50%),
+    radial-gradient(circle at 100% 100%, rgba(139, 92, 246, 0.08), transparent 50%),
+    radial-gradient(circle at 0% 50%, rgba(244, 63, 94, 0.03), transparent 40%);
+  background-attachment: fixed;
+  font-family: 'Outfit', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
 }
 
-/* Custom Tactical Scrollbar */
+/* Custom Chic Scrollbar */
 ::-webkit-scrollbar {
   width: 6px;
   height: 6px;
 }
 ::-webkit-scrollbar-track {
-  @apply bg-slate-950;
+  @apply bg-transparent;
 }
 ::-webkit-scrollbar-thumb {
-  @apply bg-slate-800 rounded-full hover:bg-slate-700 transition-colors;
+  @apply bg-slate-800/80 rounded-full hover:bg-slate-700/80 transition-colors;
 }
 
 @layer components {
   .app-card {
-    @apply rounded-xl border border-slate-800/80 bg-slate-900/60 backdrop-blur-md shadow-lg shadow-black/40 transition-all duration-300;
+    @apply rounded-2xl border border-slate-800/40 bg-slate-900/45 backdrop-blur-xl shadow-xl shadow-black/35 transition-all duration-300;
     position: relative;
     overflow: hidden;
   }
+  
   .app-card::before {
     content: "";
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
-    height: 2px;
-    background: linear-gradient(90deg, transparent, rgba(6, 182, 212, 0.4), transparent);
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(99, 102, 241, 0.25), transparent);
   }
 
   .page-title {
-    @apply text-2xl font-bold tracking-wider text-slate-100 uppercase;
-    text-shadow: 0 0 10px rgba(6, 182, 212, 0.3);
+    @apply text-xl font-bold tracking-tight text-slate-100;
   }
 
   .muted {
-    @apply text-xs font-semibold uppercase tracking-wider text-slate-500;
+    @apply text-[10px] font-semibold uppercase tracking-wider text-slate-400/80;
   }
 
   .btn {
-    @apply inline-flex items-center justify-center rounded-lg px-4 py-2 text-xs font-bold uppercase tracking-wider transition-all duration-200 disabled:cursor-not-allowed disabled:opacity-40 border border-transparent;
+    @apply inline-flex items-center justify-center rounded-xl px-4 py-2 text-xs font-semibold tracking-wide transition-all duration-200 disabled:cursor-not-allowed disabled:opacity-40 border border-transparent active:scale-[0.98];
   }
 
   .btn-primary {
-    @apply btn bg-cyan-950 text-cyan-400 border-cyan-800/60 hover:bg-cyan-900/80 active:bg-cyan-950 hover:border-cyan-500/50 hover:shadow-cyan-500/10 hover:shadow-lg;
-    text-shadow: 0 0 8px rgba(6, 182, 212, 0.4);
+    @apply btn bg-gradient-to-r from-indigo-600 to-violet-600 text-white shadow-lg shadow-indigo-950/40 hover:from-indigo-500 hover:to-violet-500 hover:shadow-indigo-500/10 hover:shadow-xl;
   }
 
   .btn-secondary {
-    @apply btn border-slate-800 bg-slate-900 text-slate-400 hover:bg-slate-800 hover:text-slate-200 active:bg-slate-900;
+    @apply btn border border-slate-800/60 bg-slate-900/60 text-slate-300 hover:bg-slate-800/60 hover:text-slate-200;
   }
 
   .btn-danger {
-    @apply btn bg-red-950/40 text-red-400 border-red-900/60 hover:bg-red-900/40 hover:border-red-500/50;
+    @apply btn bg-rose-950/20 text-rose-400 border border-rose-900/40 hover:bg-rose-900/30 hover:border-rose-500/40;
   }
 
   .btn-success {
-    @apply btn bg-emerald-950/40 text-emerald-400 border-emerald-900/60 hover:bg-emerald-900/40 hover:border-emerald-500/50;
+    @apply btn bg-emerald-950/20 text-emerald-400 border border-emerald-900/40 hover:bg-emerald-900/30 hover:border-emerald-500/40;
   }
 
   .input {
-    @apply w-full rounded-lg border border-slate-800 bg-slate-950 px-3.5 py-2 text-xs font-medium text-slate-200 outline-none ring-cyan-500/50 placeholder:text-slate-600 focus:border-cyan-500/50 focus:ring-2 transition-all duration-200;
+    @apply w-full rounded-xl border border-slate-800 bg-slate-950/60 px-4 py-2.5 text-xs font-medium text-slate-200 outline-none ring-indigo-500/20 placeholder:text-slate-500 focus:border-indigo-500/50 focus:ring-4 transition-all duration-300;
   }
 
-  /* Status Chips */
+
+  /* Elegant Status Pill */
   .badge-tac {
-    @apply inline-flex items-center justify-center rounded px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-wider;
+    @apply inline-flex items-center justify-center rounded-full px-3 py-1 text-[10px] font-semibold tracking-wide;
   }
 
-  /* HUD Pulse animations */
+  /* Chic Glowing Indicators */
   .pulse-cyan {
     @apply relative flex h-2 w-2;
   }
   .pulse-cyan::before {
     content: "";
-    @apply animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-75;
+    @apply animate-ping absolute inline-flex h-full w-full rounded-full bg-indigo-400 opacity-75;
   }
   .pulse-cyan::after {
     content: "";
-    @apply relative inline-flex rounded-full h-2 w-2 bg-cyan-500;
+    @apply relative inline-flex rounded-full h-2 w-2 bg-indigo-500;
   }
 
   .pulse-amber {
-    @apply relative flex h-2 w-2;
+    @apply relative flex h-1.5 w-1.5;
   }
   .pulse-amber::before {
     content: "";
-    @apply animate-ping absolute inline-flex h-full w-full rounded-full bg-amber-400 opacity-75;
+    @apply animate-ping absolute inline-flex h-full w-full rounded-full bg-rose-400 opacity-60;
   }
   .pulse-amber::after {
     content: "";
-    @apply relative inline-flex rounded-full h-2 w-2 bg-amber-500;
+    @apply relative inline-flex rounded-full h-1.5 w-1.5 bg-rose-500;
   }
 }
+

@@ -45,31 +45,31 @@ export default function App() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-slate-950 text-slate-100 flex flex-col selection:bg-cyan-500/20 selection:text-cyan-200">
+    <div className="min-h-screen bg-[#030712] text-slate-100 flex flex-col selection:bg-indigo-500/20 selection:text-indigo-200">
       
       {isAuthenticated && (
-        <header className="border-b border-slate-800 bg-slate-900/60 backdrop-blur-md sticky top-0 z-40 shadow-lg shadow-black/20">
+        <header className="border-b border-slate-850 bg-slate-900/30 backdrop-blur-md sticky top-0 z-40 shadow-sm shadow-black/10">
           <div className="mx-auto max-w-7xl px-4 md:px-6">
             
             {/* Top Tactical Command Bar */}
-            <div className="flex items-center justify-between py-3">
+            <div className="flex items-center justify-between py-4">
               
               {/* Brand Logo & Telemetry */}
               <div className="flex items-center gap-3">
-                <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-cyan-950/40 border border-cyan-800/40 shadow-inner">
-                  <svg className="h-5 w-5 text-cyan-400 filter drop-shadow-[0_0_6px_rgba(6,182,212,0.6)]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}>
+                <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-indigo-950/30 border border-indigo-900/30 shadow-inner">
+                  <svg className="h-5 w-5 text-indigo-400 filter drop-shadow-[0_0_6px_rgba(99,102,241,0.6)]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}>
                     <path strokeLinecap="round" strokeLinejoin="round" d="M6 12L3.269 3.126A59.768 59.768 0 0121.485 12 59.77 59.77 0 013.27 20.876L5.999 12zm0 0h7.5" />
                   </svg>
                 </div>
                 <div>
                   <div className="flex items-center gap-2">
-                    <h1 className="text-sm font-black uppercase tracking-widest text-slate-100">
-                      Skynet // Console
+                    <h1 className="text-sm font-bold tracking-wide text-slate-100">
+                      Skynet
                     </h1>
                     <span className="pulse-cyan"></span>
                   </div>
-                  <p className="text-[10px] font-bold font-mono tracking-widest text-slate-500 uppercase">
-                    SYS-OPS // BASE: BLR
+                  <p className="text-[10px] font-medium tracking-wider text-slate-500 uppercase">
+                    Flight Operations Hub
                   </p>
                 </div>
               </div>
@@ -78,35 +78,35 @@ export default function App() {
               <div className="flex items-center gap-4">
                 
                 {/* Tactical Clocks */}
-                <div className="hidden sm:flex items-center gap-3 font-mono text-[10px] font-bold text-slate-400 bg-slate-950 px-3 py-1.5 rounded border border-slate-800/60">
-                  <span className="text-cyan-400 filter drop-shadow-[0_0_4px_rgba(6,182,212,0.4)]">{timeUTC}</span>
-                  <span className="text-slate-700">|</span>
+                <div className="hidden sm:flex items-center gap-3 font-mono text-[10px] font-semibold text-slate-400 bg-slate-950/80 px-3 py-1.5 rounded-xl border border-slate-850">
+                  <span className="text-indigo-400 filter drop-shadow-[0_0_4px_rgba(99,102,241,0.4)]">{timeUTC}</span>
+                  <span className="text-slate-800">|</span>
                   <span className="text-slate-400">{timeLocal}</span>
                 </div>
 
                 {/* 📖 Glowing Sys-Op Manual Button */}
                 <button
                   onClick={() => setManualOpen(true)}
-                  className="inline-flex items-center gap-1.5 rounded border border-amber-500/40 bg-amber-500/5 hover:bg-amber-500/15 hover:border-amber-400 px-3.5 py-1.5 text-xs font-black text-amber-400 uppercase tracking-widest transition-all shadow-md shadow-amber-950/20 active:scale-95 animate-pulse"
+                  className="inline-flex items-center gap-1.5 rounded-xl border border-indigo-500/30 bg-indigo-500/10 hover:bg-indigo-500/20 hover:border-indigo-400/50 px-3.5 py-1.5 text-xs font-semibold text-indigo-300 transition-all shadow-md shadow-indigo-950/20 hover:scale-[1.02] duration-250 active:scale-95"
                 >
-                  <svg className="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                  <svg className="h-3.5 w-3.5 text-indigo-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                     <path strokeLinecap="round" strokeLinejoin="round" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
                   </svg>
-                  Sys-Op Manual
+                  Operations Guide
                 </button>
 
                 {/* User State */}
                 {user && (
                   <div className="flex items-center gap-3">
                     <div className="hidden md:flex flex-col items-end">
-                      <span className="text-xs font-bold text-slate-200 uppercase">{user.full_name}</span>
+                      <span className="text-xs font-semibold text-slate-200">{user.full_name}</span>
                       <RoleBadge role={user.role} size="sm" />
                     </div>
                     <button
                       onClick={handleLogout}
-                      className="rounded border border-slate-850 bg-slate-950 hover:bg-slate-900 px-2.5 py-1.5 text-[10px] font-bold text-slate-400 hover:text-slate-200 uppercase tracking-wider transition-colors"
+                      className="rounded-xl border border-slate-800 bg-slate-950/80 hover:bg-slate-900 px-3 py-1.5 text-[10px] font-semibold text-slate-400 hover:text-slate-250 transition-colors"
                     >
-                      Exit
+                      Sign Out
                     </button>
                   </div>
                 )}
@@ -115,17 +115,17 @@ export default function App() {
             </div>
 
             {/* Tactical Tab Navigation */}
-            <nav className="flex gap-0.5 overflow-x-auto mt-2 -mb-px">
+            <nav className="flex gap-6 overflow-x-auto -mb-px">
               {NAV.map((item) => (
                 <NavLink
                   key={item.to}
                   to={item.to}
                   end={item.to === "/"}
                   className={({ isActive }) =>
-                    `rounded-t border-t border-x px-4 py-2 text-xs font-black uppercase tracking-widest whitespace-nowrap transition-all ${
+                    `pb-3 pt-1 text-xs font-semibold tracking-wide whitespace-nowrap transition-all border-b-2 ${
                       isActive
-                        ? "border-slate-800 bg-slate-950 text-cyan-400 filter drop-shadow-[0_-2px_4px_rgba(6,182,212,0.15)]"
-                        : "border-transparent text-slate-500 hover:text-slate-350 hover:bg-slate-800/20"
+                        ? "border-indigo-500 text-indigo-400 font-bold"
+                        : "border-transparent text-slate-500 hover:text-slate-300"
                     }`
                   }
                 >

@@ -88,103 +88,103 @@ export function SysOpManual({ isOpen, onClose }: SysOpManualProps) {
   ];
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-end bg-slate-950/80 backdrop-blur-sm transition-opacity duration-300">
+    <div className="fixed inset-0 z-50 flex items-center justify-end bg-slate-950/60 backdrop-blur-sm transition-opacity duration-300">
       {/* Background click to close */}
       <div className="absolute inset-0" onClick={onClose}></div>
 
       {/* Manual Drawer Panel */}
-      <div className="relative h-full w-full max-w-2xl border-l border-slate-800 bg-slate-900 p-6 shadow-2xl flex flex-col justify-between select-none">
+      <div className="relative h-full w-full max-w-2xl border-l border-slate-850 bg-[#090d16]/95 backdrop-blur-2xl p-6 md:p-8 shadow-2xl flex flex-col justify-between select-none font-sans rounded-l-3xl">
         
         {/* Top Header */}
         <div>
-          <div className="flex items-center justify-between border-b border-slate-800 pb-4">
-            <div className="flex items-center gap-2">
-              <div className="h-2 w-2 rounded-full bg-cyan-500 animate-pulse"></div>
-              <h2 className="text-lg font-bold tracking-wider text-slate-100 uppercase">
-                [ SYS-OP MANUAL // FLIGHT RULES ]
+          <div className="flex items-center justify-between border-b border-slate-850/60 pb-4">
+            <div className="flex items-center gap-2.5">
+              <span className="pulse-cyan"></span>
+              <h2 className="text-base font-bold tracking-tight text-slate-100">
+                Operations Guide
               </h2>
             </div>
             <button 
               onClick={onClose}
-              className="rounded border border-slate-800 bg-slate-950 px-2.5 py-1 text-xs font-bold text-slate-400 hover:text-red-400 hover:border-red-500/30 transition-all uppercase"
+              className="rounded-xl border border-slate-800 bg-slate-950/80 hover:bg-slate-900 hover:text-slate-200 px-3.5 py-1.5 text-xs font-semibold text-slate-400 transition-all cursor-pointer"
             >
-              Close [Esc]
+              Close
             </button>
           </div>
 
           {/* Navigation Tabs */}
-          <div className="mt-4 flex gap-1 border-b border-slate-800/60 pb-2">
+          <div className="mt-5 flex gap-1.5 border-b border-slate-850/40 pb-3">
             {(["quickstart", "roles", "lifecycle"] as const).map((tab) => (
               <button
                 key={tab}
                 onClick={() => setActiveTab(tab)}
-                className={`rounded px-3 py-1.5 text-xs font-bold uppercase tracking-wider transition-all ${
+                className={`rounded-xl px-4 py-2 text-xs font-semibold tracking-wide transition-all cursor-pointer ${
                   activeTab === tab 
-                    ? "bg-cyan-950 text-cyan-400 border border-cyan-800/60 shadow-md shadow-cyan-950/50" 
-                    : "text-slate-500 hover:text-slate-300"
+                    ? "bg-indigo-600 text-white shadow-lg shadow-indigo-950/40" 
+                    : "text-slate-500 hover:text-slate-300 hover:bg-slate-900/30"
                 }`}
               >
                 {tab === "quickstart" && "💡 Quick Start"}
-                {tab === "roles" && "👥 Roles & Permissions"}
-                {tab === "lifecycle" && "✈️ Sortie Lifecycle"}
+                {tab === "roles" && "👥 Roles & Access"}
+                {tab === "lifecycle" && "✈️ Sortie Cycles"}
               </button>
             ))}
           </div>
         </div>
 
         {/* Scrollable Content Container */}
-        <div className="flex-1 overflow-y-auto my-4 pr-1 scrollbar-thin">
+        <div className="flex-1 overflow-y-auto my-5 pr-2 scrollbar-thin">
           
           {/* 💡 Tab 1: Quick Start */}
           {activeTab === "quickstart" && (
-            <div className="space-y-4">
-              <div className="rounded-lg border border-cyan-800/40 bg-cyan-950/20 p-4">
-                <h3 className="text-sm font-bold text-cyan-400 uppercase tracking-wider">
-                  Welcome Operator! How to Test this Site:
+            <div className="space-y-5">
+              <div className="rounded-2xl border border-indigo-500/10 bg-indigo-500/5 p-5">
+                <h3 className="text-xs font-bold text-indigo-400 uppercase tracking-wider">
+                  Testing Guide
                 </h3>
-                <p className="mt-2 text-xs text-slate-300 leading-relaxed font-sans">
-                  Skynet is a flight operations console built to coordinate base stations, aircraft, sorties, and pilot training records. To experience the system fully, we recommend acting as different crew members using the preset accounts:
+                <p className="mt-2 text-xs text-slate-350 leading-relaxed font-sans">
+                  Skynet orchestrates a complete flight operations cycle. Switch between the preset demo accounts to simulate different operational workflows:
                 </p>
               </div>
 
-              <div className="grid gap-3">
-                <div className="rounded-lg border border-slate-800 bg-slate-950/60 p-3">
+              <div className="grid gap-4">
+                <div className="rounded-2xl border border-slate-850 bg-slate-900/15 p-4">
                   <div className="flex items-center gap-2">
-                    <span className="text-xs font-bold px-2 py-0.5 rounded bg-cyan-950 text-cyan-400">STEP 1</span>
-                    <span className="text-xs font-bold text-slate-200 uppercase">Dispatch a Flight (Role: Dispatcher)</span>
+                    <span className="text-[9px] font-bold px-2 py-0.5 rounded-full bg-indigo-500/15 text-indigo-300 border border-indigo-500/20">STEP 1</span>
+                    <span className="text-xs font-bold text-slate-200">Dispatch a Flight (Role: Dispatcher)</span>
                   </div>
-                  <p className="mt-1 text-xs text-slate-400 font-sans leading-relaxed">
-                    Log in as a **Dispatcher**. Go to the **Sortie Board** page, and click **Release** on a scheduled flight (VT-ABC is ready, but VT-SKY is grounded!). Once taxiing, click **Mark Airborne**. When back, click **Mark Landed**.
+                  <p className="mt-2 text-xs text-slate-400 font-sans leading-relaxed">
+                    Log in as a **Dispatcher**. Open the **Flight Board**, and click **Release Flight** on a scheduled flight (VT-ABC is ready, but VT-SKY is grounded!). Click **Mark Airborne** when takeoff is reported. When landing is logged, click **Mark Landed**.
                   </p>
                 </div>
 
-                <div className="rounded-lg border border-slate-800 bg-slate-950/60 p-3">
+                <div className="rounded-2xl border border-slate-850 bg-slate-900/15 p-4">
                   <div className="flex items-center gap-2">
-                    <span className="text-xs font-bold px-2 py-0.5 rounded bg-cyan-950 text-cyan-400">STEP 2</span>
-                    <span className="text-xs font-bold text-slate-200 uppercase">Grade the Pilot (Role: Instructor)</span>
+                    <span className="text-[9px] font-bold px-2 py-0.5 rounded-full bg-indigo-500/15 text-indigo-300 border border-indigo-500/20">STEP 2</span>
+                    <span className="text-xs font-bold text-slate-200">Grade the Pilot (Role: Instructor)</span>
                   </div>
-                  <p className="mt-1 text-xs text-slate-400 font-sans leading-relaxed">
-                    Once a flight lands, log in as an **Instructor**. Go to the **Training** page, select the completed flight, fill in the maneuver, communication, and situational scores, and click **Submit Draft**.
+                  <p className="mt-2 text-xs text-slate-400 font-sans leading-relaxed">
+                    Once the flight lands, log in as an **Instructor**. Navigate to **Training**, select the completed flight, enter scores for maneuvers, communications, and situational awareness, and click **Create Record (Draft)**.
                   </p>
                 </div>
 
-                <div className="rounded-lg border border-slate-800 bg-slate-950/60 p-3">
+                <div className="rounded-2xl border border-slate-850 bg-slate-900/15 p-4">
                   <div className="flex items-center gap-2">
-                    <span className="text-xs font-bold px-2 py-0.5 rounded bg-cyan-950 text-cyan-400">STEP 3</span>
-                    <span className="text-xs font-bold text-slate-200 uppercase">Approve & Close (Role: CFI)</span>
+                    <span className="text-[9px] font-bold px-2 py-0.5 rounded-full bg-indigo-500/15 text-indigo-300 border border-indigo-500/20">STEP 3</span>
+                    <span className="text-xs font-bold text-slate-200">Approve & Archive (Role: CFI)</span>
                   </div>
-                  <p className="mt-1 text-xs text-slate-400 font-sans leading-relaxed">
-                    Log in as **CFI (Chief Flying Instructor)**. Review the submitted training evaluation on the **Training** board. Click **Approve**. Finally, go to the **Sortie Board** and click **Close** to archive the sortie.
+                  <p className="mt-2 text-xs text-slate-400 font-sans leading-relaxed">
+                    Log in as the **CFI (Chief Flying Instructor)**. Inspect the submitted pilot score logs in the **Training** tab, review recommendations, and click **Approve**. Lastly, return to the **Flight Board** and click **Close Sortie** to archive.
                   </p>
                 </div>
 
-                <div className="rounded-lg border border-slate-800 bg-slate-950/60 p-3">
+                <div className="rounded-2xl border border-slate-850 bg-slate-900/15 p-4">
                   <div className="flex items-center gap-2">
-                    <span className="text-xs font-bold px-2 py-0.5 rounded bg-cyan-950 text-cyan-400">STEP 4</span>
-                    <span className="text-xs font-bold text-slate-200 uppercase">Repair the Hangar (Role: Maint. Officer)</span>
+                    <span className="text-[9px] font-bold px-2 py-0.5 rounded-full bg-indigo-500/15 text-indigo-300 border border-indigo-500/20">STEP 4</span>
+                    <span className="text-xs font-bold text-slate-200">Aircraft Repair (Role: Maint. Officer)</span>
                   </div>
-                  <p className="mt-1 text-xs text-slate-400 font-sans leading-relaxed">
-                    If an aircraft has a defect (e.g. VT-SKY is grounded), log in as a **Maintenance Officer**. Go to the **Aircraft** list, select the defect, log a recovery decision, click **Resolve Defect**, and mark the aircraft status back to **READY**!
+                  <p className="mt-2 text-xs text-slate-400 font-sans leading-relaxed">
+                    When aircraft face defects (e.g. VT-SKY is grounded), log in as a **Maintenance Officer**. Open the **Aircraft** list, choose the active issue, write down your recovery decision notes, and click **Resolve** to declare the plane **READY**.
                   </p>
                 </div>
               </div>
@@ -198,19 +198,22 @@ export function SysOpManual({ isOpen, onClose }: SysOpManualProps) {
                 Role-Based Access Control (RBAC) is enforced system-wide. Switch roles to unlock pages and actions dynamically:
               </p>
               
-              <div className="space-y-3">
+              <div className="space-y-4">
                 {rolesData.map((roleInfo) => (
-                  <div key={roleInfo.role} className="rounded-lg border border-slate-800 bg-slate-950/40 p-4 hover:border-slate-700/80 transition-all">
-                    <div className="flex items-center justify-between border-b border-slate-800 pb-2">
-                      <span className="text-sm font-bold text-slate-200">{roleInfo.title}</span>
-                      <span className="text-[10px] font-mono font-bold tracking-widest text-slate-500 bg-slate-900 px-2 py-0.5 rounded">{roleInfo.role}</span>
+                  <div key={roleInfo.role} className="rounded-2xl border border-slate-850 bg-slate-900/10 p-5 hover:border-slate-800 transition-all duration-300">
+                    <div className="flex items-center justify-between border-b border-slate-850/60 pb-3">
+                      <span className="text-sm font-bold text-slate-250">{roleInfo.title}</span>
+                      <span className="text-[10px] font-bold text-indigo-400 bg-indigo-950/20 px-2.5 py-0.5 rounded-full border border-indigo-900/30">{roleInfo.role}</span>
                     </div>
-                    <p className="mt-2 text-xs text-slate-400 font-sans leading-relaxed">{roleInfo.description}</p>
-                    <div className="mt-3">
-                      <p className="text-[10px] uppercase font-bold text-amber-500/80 tracking-wider">Operational Clearance:</p>
-                      <ul className="mt-1.5 list-disc list-inside space-y-1 text-xs text-slate-300 font-sans leading-relaxed">
+                    <p className="mt-3 text-xs text-slate-400 font-sans leading-relaxed">{roleInfo.description}</p>
+                    <div className="mt-4">
+                      <p className="text-[10px] uppercase font-bold text-indigo-400 tracking-wider">Permitted Directives:</p>
+                      <ul className="mt-2 space-y-2 text-xs text-slate-300 font-sans leading-relaxed list-inside">
                         {roleInfo.abilities.map((ability, idx) => (
-                          <li key={idx}>{ability}</li>
+                          <li key={idx} className="flex items-start gap-2">
+                            <span className="text-indigo-400 mt-0.5">•</span>
+                            <span>{ability}</span>
+                          </li>
                         ))}
                       </ul>
                     </div>
@@ -224,27 +227,27 @@ export function SysOpManual({ isOpen, onClose }: SysOpManualProps) {
           {activeTab === "lifecycle" && (
             <div className="space-y-4">
               <p className="text-xs text-slate-400 font-sans">
-                Sorties follow a strict state-machine flow designed to replicate military and commercial flight compliance. Below are the sequential operational phases:
+                Sorties follow a strict state-machine flow designed to replicate flight compliance:
               </p>
 
-              <div className="relative border-l-2 border-slate-800 ml-3 pl-6 space-y-5 py-2">
+              <div className="relative border-l border-slate-850 ml-3 pl-6 space-y-5 py-2">
                 {lifecycleStages.map((stage, idx) => (
                   <div key={stage.status} className="relative group">
                     {/* Node Dot Indicator */}
-                    <div className="absolute -left-[31px] top-1 h-3.5 w-3.5 rounded-full border-2 border-slate-800 bg-slate-900 flex items-center justify-center group-hover:border-cyan-500 transition-colors">
-                      <div className="h-1.5 w-1.5 rounded-full bg-slate-800 group-hover:bg-cyan-500 transition-colors"></div>
+                    <div className="absolute -left-[31px] top-1 h-2.5 w-2.5 rounded-full border border-slate-800 bg-slate-900 flex items-center justify-center group-hover:border-indigo-500 transition-colors">
+                      <div className="h-1 w-1 rounded-full bg-slate-800 group-hover:bg-indigo-500 transition-colors"></div>
                     </div>
 
-                    <div className="rounded-lg border border-slate-800 bg-slate-950/40 p-3.5 hover:border-slate-700/80 transition-all">
+                    <div className="rounded-2xl border border-slate-850 bg-slate-900/10 p-4 hover:border-slate-800 transition-all duration-300">
                       <div className="flex items-center justify-between">
-                        <span className="text-xs font-bold text-cyan-400 tracking-wider">{idx + 1}. {stage.status}</span>
-                        <span className="text-[9px] font-bold text-slate-500 uppercase tracking-widest bg-slate-900/60 px-1.5 py-0.5 rounded">
-                          Actor: {stage.actor}
+                        <span className="text-xs font-bold text-indigo-400 tracking-wider">{idx + 1}. {stage.status.replace(/_/g, " ")}</span>
+                        <span className="text-[9px] font-semibold text-slate-500 uppercase tracking-wider bg-slate-900/60 px-2 py-0.5 rounded-lg border border-slate-800">
+                          Cleared Actor: {stage.actor}
                         </span>
                       </div>
-                      <p className="mt-1.5 text-xs text-slate-300 font-sans leading-relaxed">{stage.description}</p>
-                      <div className="mt-2 text-[10px] text-slate-500 font-mono">
-                        <span className="text-amber-500/80 uppercase font-bold tracking-wider">Gate Check:</span> {stage.rules}
+                      <p className="mt-2 text-xs text-slate-350 font-sans leading-relaxed">{stage.description}</p>
+                      <div className="mt-3 text-[10px] text-slate-500 font-medium">
+                        <span className="text-indigo-400/80 uppercase font-bold tracking-wider mr-1">Compliance Check:</span> {stage.rules}
                       </div>
                     </div>
                   </div>
@@ -256,9 +259,9 @@ export function SysOpManual({ isOpen, onClose }: SysOpManualProps) {
         </div>
 
         {/* Bottom Metadata bar */}
-        <div className="border-t border-slate-800 pt-4 flex items-center justify-between text-[10px] text-slate-500 uppercase font-mono">
-          <span>OPERATIONS MANUAL // VER: 1.0.4</span>
-          <span>SKYNET FLIGHT MODULE READY</span>
+        <div className="border-t border-slate-850 pt-4 flex items-center justify-between text-[10px] text-slate-500 uppercase tracking-wide font-medium">
+          <span>Operations Handbook v1.0.4</span>
+          <span className="text-indigo-400">System Nominal</span>
         </div>
 
       </div>
