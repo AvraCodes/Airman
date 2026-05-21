@@ -133,7 +133,7 @@ h1, h2, h3, h4, h5, h6, .page-title, .font-display {
   }
 
   .btn {
-    @apply inline-flex items-center justify-center rounded-sm px-4 py-2 text-xs font-semibold tracking-wide transition-all duration-200 disabled:cursor-not-allowed disabled:opacity-40 border border-transparent active:scale-[0.98];
+    @apply inline-flex items-center justify-center rounded-xl px-4 py-2 text-xs font-semibold tracking-wide transition-all duration-200 disabled:cursor-not-allowed disabled:opacity-40 border border-transparent active:scale-[0.98];
   }
 
   .btn-primary {
@@ -159,7 +159,7 @@ h1, h2, h3, h4, h5, h6, .page-title, .font-display {
     background-color: var(--input-bg);
     border-color: var(--border-primary);
     color: var(--text-secondary);
-    @apply w-full rounded-sm border px-4 py-2.5 text-xs font-medium outline-none ring-cyan-500/20 placeholder:text-slate-500 focus:border-cyan-500/50 focus:ring-4 transition-all duration-300;
+    @apply w-full rounded-xl border px-4 py-2.5 text-xs font-medium outline-none ring-cyan-500/20 placeholder:text-slate-500 focus:border-cyan-500/50 focus:ring-4 transition-all duration-300;
   }
 
   /* Elegant Status Pill */
