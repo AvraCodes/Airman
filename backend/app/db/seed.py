@@ -71,8 +71,7 @@ def run_seed(drop_tables: bool = False) -> None:
                 u.full_name = full_name
                 u.role = role
                 u.base_id = base_id
-                if not u.hashed_password:
-                    u.hashed_password = hash_password(plain_pwd)
+                u.hashed_password = hash_password(plain_pwd)
                 db.commit()
             users.append(u)
 

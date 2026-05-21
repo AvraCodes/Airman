@@ -18,26 +18,43 @@ from app.db.seed import run_seed
 import traceback
 
 def _ensure_seed() -> None:
-    """Run seed only when the database is empty."""
+    """Run idempotent seed on startup to ensure all demo data and credentials are populated and up to date."""
+    try:
+        run_seed(drop_tables=False)
+        print("Database seeded and verified successfully.")
+    except Exception as e:
+        # Safe ignore concurrent seeding collisions on multi-instance serverless starts
+        print(f"Database seed handled concurrently or skipped: {e}")
+        traceback.print_exc()
+
+
+def _verify_and_update_schema() -> None:
+    """Ensure that the database schema is up-to-date by applying missing columns/updates directly if needed."""
+    from sqlalchemy import text
     db: Session = SessionLocal()
     try:
-        has_users = db.query(User).first() is not None
-    except Exception:
-        has_users = False
+        bind_engine = db.get_bind()
+        is_pg = "postgresql" in str(bind_engine.url)
+        
+        # Safe alter table to add hashed_password column if it doesn't exist
+        if is_pg:
+            db.execute(text("ALTER TABLE users ADD COLUMN IF NOT EXISTS hashed_password VARCHAR(200)"))
+        else:
+            try:
+                db.execute(text("ALTER TABLE users ADD COLUMN hashed_password VARCHAR(200)"))
+            except Exception:
+                pass  # Ignore if column already exists
+        db.commit()
+    except Exception as e:
+        print(f"Schema auto-update skipped or handled: {e}")
     finally:
         db.close()
-    if not has_users:
-        try:
-            run_seed(drop_tables=False)
-        except Exception as e:
-            # Safe ignore concurrent seeding collisions on multi-instance serverless starts
-            print(f"Database seed skipped or handled concurrently: {e}")
-            traceback.print_exc()
 
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     Base.metadata.create_all(bind=engine)
+    _verify_and_update_schema()
     _ensure_seed()
     yield
 

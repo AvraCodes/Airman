@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useAuth } from "../hooks/useAuth";
+import axios from "axios";
 
 const DEMO_ACCOUNTS = [
   { email: "admin@airman.local",      password: "admin",       label: "Admin" },
@@ -21,21 +22,38 @@ export function Login() {
   const [password, setPassword] = useState("");
   const [error, setError]       = useState<string | null>(null);
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
+  const performLogin = async (credentials: { email: string; password: string }) => {
     setError(null);
     try {
-      await login({ email, password });
+      await login(credentials);
       navigate(from, { replace: true });
-    } catch {
-      setError("Invalid email or password. Check the demo accounts below.");
+    } catch (err: any) {
+      if (axios.isAxiosError(err)) {
+        if (!err.response) {
+          setError(`Network error: Cannot connect to the API server. Please check that the backend is running and CORS is configured.`);
+        } else {
+          const detail = err.response.data?.detail || err.response.data?.message || err.message;
+          if (err.response.status === 401) {
+            setError("Invalid email or password. Check the demo accounts below.");
+          } else {
+            setError(`Server Error (${err.response.status}): ${typeof detail === 'string' ? detail : JSON.stringify(detail)}`);
+          }
+        }
+      } else {
+        setError(err instanceof Error ? err.message : "An unexpected error occurred.");
+      }
     }
   };
 
-  const fillDemo = (acc: typeof DEMO_ACCOUNTS[0]) => {
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    await performLogin({ email, password });
+  };
+
+  const fillDemo = async (acc: typeof DEMO_ACCOUNTS[0]) => {
     setEmail(acc.email);
     setPassword(acc.password);
-    setError(null);
+    await performLogin({ email: acc.email, password: acc.password });
   };
 
   return (
