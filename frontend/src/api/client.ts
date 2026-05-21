@@ -1,6 +1,19 @@
 import axios from "axios";
 
-const BASE_URL = import.meta.env.VITE_API_BASE_URL ?? "http://127.0.0.1:8000";
+const getBaseUrl = () => {
+  if (import.meta.env.VITE_API_BASE_URL) {
+    return import.meta.env.VITE_API_BASE_URL;
+  }
+  // Auto-detect Vercel multi-service relative path prefix in production
+  if (typeof window !== "undefined" && 
+      window.location.hostname !== "localhost" && 
+      window.location.hostname !== "127.0.0.1") {
+    return "/_/backend";
+  }
+  return "http://127.0.0.1:8000";
+};
+
+const BASE_URL = getBaseUrl();
 
 export const client = axios.create({
   baseURL: BASE_URL,

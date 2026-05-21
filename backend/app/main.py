@@ -15,6 +15,8 @@ from app.db.models import User
 from app.db.seed import run_seed
 
 
+import traceback
+
 def _ensure_seed() -> None:
     """Run seed only when the database is empty."""
     db: Session = SessionLocal()
@@ -30,6 +32,7 @@ def _ensure_seed() -> None:
         except Exception as e:
             # Safe ignore concurrent seeding collisions on multi-instance serverless starts
             print(f"Database seed skipped or handled concurrently: {e}")
+            traceback.print_exc()
 
 
 @asynccontextmanager
