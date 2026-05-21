@@ -4,10 +4,11 @@ export default {
     extend: {
       fontFamily: {
         sans: ["Inter", "sans-serif"],
-        display: ["Plus Jakarta Sans", "sans-serif"],
+        display: ["Sora", "sans-serif"],
       },
     },
   },
   plugins: [],
 };
+
 
