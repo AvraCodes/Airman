@@ -15,8 +15,9 @@ from app.db.models import (
 from app.services.audit_service import create_audit_log
 
 
-def run_seed() -> None:
-    Base.metadata.drop_all(bind=engine)
+def run_seed(drop_tables: bool = False) -> None:
+    if drop_tables:
+        Base.metadata.drop_all(bind=engine)
     Base.metadata.create_all(bind=engine)
     db = SessionLocal()
     try:
@@ -100,4 +101,4 @@ def run_seed() -> None:
 
 
 if __name__ == "__main__":
-    run_seed()
+    run_seed(drop_tables=True)

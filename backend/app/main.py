@@ -20,10 +20,16 @@ def _ensure_seed() -> None:
     db: Session = SessionLocal()
     try:
         has_users = db.query(User).first() is not None
+    except Exception:
+        has_users = False
     finally:
         db.close()
     if not has_users:
-        run_seed()
+        try:
+            run_seed(drop_tables=False)
+        except Exception as e:
+            # Safe ignore concurrent seeding collisions on multi-instance serverless starts
+            print(f"Database seed skipped or handled concurrently: {e}")
 
 
 @asynccontextmanager
