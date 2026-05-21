@@ -111,8 +111,11 @@ export function Login() {
             {/* Top HUD Brand header */}
             <div className="flex items-center gap-2.5 pb-4 border-b border-slate-800/40">
               <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-cyan-950/30 border border-cyan-900/30 shadow-inner">
-                <svg className="h-5 w-5 text-cyan-400 filter drop-shadow-[0_0_6px_rgba(6,182,212,0.6)]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.2}>
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M6 12L3.269 3.126A59.768 59.768 0 0121.485 12 59.77 59.77 0 013.27 20.876L5.999 12zm0 0h7.5" />
+                <svg className="h-5 w-5 text-cyan-400 filter drop-shadow-[0_0_6px_rgba(6,182,212,0.6)]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <circle cx="12" cy="12" r="10" strokeWidth="1.2" strokeDasharray="3 3" opacity="0.4" />
+                  <path d="M12 2L2 14h7l3 6 3-6h7L12 2z" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+                  <path d="M12 2v10" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" opacity="0.8" />
+                  <path d="M8 12h8" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round" opacity="0.6" />
                 </svg>
               </div>
               <div>
